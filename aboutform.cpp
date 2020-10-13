@@ -1,0 +1,16 @@
+#include "aboutform.h"
+#include "ui_aboutform.h"
+
+AboutForm::AboutForm(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::AboutForm)
+{
+    ui->setupUi(this);
+    this->setWindowTitle("TrafficLightsApp");
+    this->setWindowIcon(QIcon(""));
+}
+
+AboutForm::~AboutForm()
+{
+    delete ui;
+}
