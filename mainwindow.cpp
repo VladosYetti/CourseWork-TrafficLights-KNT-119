@@ -14,6 +14,28 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
     this->setWindowIcon(QIcon(""));
+
+
+
+
+
+
+    /**************************************************************************************************/
+    QObject::connect(this->dijkstra, &DijkstraAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
+    QObject::connect(this->fordfulkerson, &FordFulkersonAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
+    QObject::connect(this->bfs, &BFSAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
+    /**************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
 }
 /**************************************************************************************************/
 MainWindow::~MainWindow()
@@ -60,4 +82,34 @@ void MainWindow::on_actionQt_triggered()
 void MainWindow::on_actionGitHub_triggered()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/VladosYetti/CourseWork-TrafficLights-KNT-119"));
+}
+
+void MainWindow::on_actionTraffic_ongestion_triggered()
+{
+    int n = 6;
+                         g ={ {0, 3, 5, -1, -1, -1  },  // For Example
+                              {-1, 0, -1, 7, 5, -1  },
+                              { -1, -1, 0, -1, 3,-1 },
+                              {-1, -1, 3, 0, -1, 11 },
+                              {-1, -1, -1, -1, 0, 7 },
+                              {-1, -1, -1, -1, -1, 0} };
+
+    prev = QVector<int>(n, -1);
+    qDebug() << this->fordfulkerson->Algorithm(g, prev , 0, 5, n);
+    this->resultworkalgorithmform->show();
+}
+
+void MainWindow::on_actionConnection_heck_triggered()
+{
+    int n = 6;
+                         g ={ {0, 3, 5, -1, -1, -1  },  // For Example
+                              {-1, 0, -1, 7, 5, -1  },
+                              { -1, -1, 0, -1, 3,-1 },
+                              {-1, -1, 3, 0, -1, 11 },
+                              {-1, -1, -1, -1, 0, 7 },
+                              {-1, -1, -1, -1, -1, 0} };
+
+    prev = QVector<int>(n, -1);
+    qDebug() << this->bfs->Algorithm(g, prev , 0, 5, n);
+    this->resultworkalgorithmform->show();
 }

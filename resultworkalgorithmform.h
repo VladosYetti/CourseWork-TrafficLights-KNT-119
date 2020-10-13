@@ -3,6 +3,7 @@
 #define RESULTWORKALGORITHMFORM_H
 /**************************************************************************************************/
 #include <QDialog>
+#include <QString>
 #include <QIcon>
 #include <dijkstraalgorithmgraph.h>
 #include <fordfulkersonalgorithmgraph.h>
@@ -19,13 +20,13 @@ public:
     explicit ResultWorkAlgorithmForm(QWidget *parent = nullptr);
     ~ResultWorkAlgorithmForm();
 public slots:
-    void setData(QVector<QVector<int>>&g, QVector<int>&path);
+    void setData(QVector<QVector<int>> g, QVector<int> path, int res);
+
+private slots:
+    void on_Close_clicked();
 
 private:
     Ui::ResultWorkAlgorithmForm *ui;
-    DijkstraAlgorithmGraph* dijkstra;
-    FordFulkersonAlgorithmGraph* fordfulkerson;
-    BFSAlgorithmGraph* bfs;
     QVector<QVector<int>>g;
     QVector<int>prev;
 };

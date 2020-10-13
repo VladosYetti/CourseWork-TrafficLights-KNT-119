@@ -34,6 +34,10 @@ private slots:
 
     void on_actionGitHub_triggered();
 
+    void on_actionTraffic_ongestion_triggered();
+
+    void on_actionConnection_heck_triggered();
+
 private:
     Ui::MainWindow *ui;
     DijkstraAlgorithmGraph* dijkstra;

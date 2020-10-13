@@ -19,7 +19,7 @@ public:
 protected:
     const int inf = 0x3F3F3F3F;
 signals:
-    void GraphPath(QVector<QVector<int>>&g, QVector<int>&path);
+    void GraphPath(QVector<QVector<int>> g, QVector<int> path, int res);
 };
 /**************************************************************************************************/
 #endif // ABSTRACTALGORITHMGRAPH_H
