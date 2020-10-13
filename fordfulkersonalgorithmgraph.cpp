@@ -2,7 +2,7 @@
 /**************************************************************************************************/
 FordFulkersonAlgorithmGraph::FordFulkersonAlgorithmGraph(QObject *parent) : AbstractAlgorithmGraph(parent) { this->bfs = new BFSAlgorithmGraph(nullptr); }
 /**************************************************************************************************/
-int FordFulkersonAlgorithmGraph::Algorithm(QVector<QVector<int> > &g, QVector<int> &prev, int s, int f, int n)
+int FordFulkersonAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int> &prev, int s, int f, int n)
 {
     int flow, path = 0;
     /**************************************************************************************************/

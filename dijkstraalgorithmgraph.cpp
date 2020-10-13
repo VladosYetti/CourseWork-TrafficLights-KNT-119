@@ -2,7 +2,7 @@
 /**************************************************************************************************/
 DijkstraAlgorithmGraph::DijkstraAlgorithmGraph(QObject *parent) : AbstractAlgorithmGraph(parent) {}
 /**************************************************************************************************/
-int DijkstraAlgorithmGraph::Algorithm(QVector<QVector<int> > &g, QVector<int>& prev, int s, int f, int n)
+int DijkstraAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int>& prev, int s, int f, int n)
 {
     int min_dist, vertex;
     QVector<int>dist(n, this->inf);
@@ -41,7 +41,7 @@ int DijkstraAlgorithmGraph::Algorithm(QVector<QVector<int> > &g, QVector<int>& p
         curr = prev[curr];
     }
     /**************************************************************************************************/
-    std::reverse(path.begin(), path.end());
+    this->reverse(path);
     /**************************************************************************************************/
     emit GraphPath(g, path);
     /**************************************************************************************************/

@@ -2,7 +2,7 @@
 /**************************************************************************************************/
 BFSAlgorithmGraph::BFSAlgorithmGraph(QObject *parent) : AbstractAlgorithmGraph(parent) {}
 /**************************************************************************************************/
-int BFSAlgorithmGraph::Algorithm(QVector<QVector<int> > &g, QVector<int>& prev, int s, int f, int n)
+int BFSAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int>& prev, int s, int f, int n)
 {
     QVector<bool>dist(n, false);
     QQueue<int>q;
@@ -22,6 +22,18 @@ int BFSAlgorithmGraph::Algorithm(QVector<QVector<int> > &g, QVector<int>& prev, 
             }
         }
     }
+    /**************************************************************************************************/
+    QVector<int>path;
+    int curr = f - 1;
+    while(curr != -1)
+    {
+        path.push_back(curr);
+        curr = prev[curr];
+    }
+    /**************************************************************************************************/
+    this->reverse(path);
+    /**************************************************************************************************/
+    emit this->GraphPath(g, path);
     /**************************************************************************************************/
     return dist[f] == true;
 }
