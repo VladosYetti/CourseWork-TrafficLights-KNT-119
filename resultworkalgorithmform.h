@@ -5,9 +5,7 @@
 #include <QDialog>
 #include <QString>
 #include <QIcon>
-#include <dijkstraalgorithmgraph.h>
-#include <fordfulkersonalgorithmgraph.h>
-#include <bfsalgorithmgraph.h>
+#include <QMessageBox>
 /**************************************************************************************************/
 namespace Ui {
 class ResultWorkAlgorithmForm;

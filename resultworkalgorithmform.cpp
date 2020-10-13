@@ -1,5 +1,6 @@
 #include "resultworkalgorithmform.h"
 #include "ui_resultworkalgorithmform.h"
+
 /**************************************************************************************************/
 ResultWorkAlgorithmForm::ResultWorkAlgorithmForm(QWidget *parent) :
     QDialog(parent),
@@ -24,10 +25,11 @@ void ResultWorkAlgorithmForm::setData(QVector<QVector<int> >g, QVector<int>path,
     QString strPath, strMatrix;
     /**************************************************************************************************/
     this->ui->path->clear();
-    this->ui->matrix->clear();
+    this->ui->matrixlist->clear();
     this->ui->result->clear();
     /**************************************************************************************************/
     this->ui->result->setText(QString::number(res));
+    /**************************************************************************************************/
     for(auto&i:this->prev)
     {
         strPath += (QString::number(i + 1) + " ");
@@ -37,17 +39,17 @@ void ResultWorkAlgorithmForm::setData(QVector<QVector<int> >g, QVector<int>path,
     /**************************************************************************************************/
     for(int i = 0; i  < this->g.size(); ++i)
     {
+        strMatrix.clear();
         for(int j = 0; j < this->g[i].size(); ++j)
         {
-            strMatrix += QString::number(g[i][j]) + "\t ";
+            strMatrix += QString::number(g[i][j]) + "\t";
         }
-        strMatrix += "\n";
+        this->ui->matrixlist->addItem(strMatrix);
     }
-    /**************************************************************************************************/
-    this->ui->matrix->setText(strMatrix);}
+}
 /**************************************************************************************************/
 void ResultWorkAlgorithmForm::on_Close_clicked()
 {
-    this->close();
+    if(QMessageBox::question(this, tr("TrafficLightsApp"), tr("Are you sure?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes) this->close();
 }
 /**************************************************************************************************/
