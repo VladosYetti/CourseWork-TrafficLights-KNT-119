@@ -6,9 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
+<<<<<<< HEAD
+    <width>260</width>
+    <height>240</height>
+=======
     <width>532</width>
     <height>345</height>
+>>>>>>> db10660808d1ba441088f2abffa43c2e16e7694e
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>260</width>
+    <height>240</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -35,6 +46,15 @@
          <property name="text">
           <string/>
          </property>
+<<<<<<< HEAD
+         <property name="pixmap">
+          <pixmap resource="Resource.qrc">:/Img/Recourse/traffic-lights.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+=======
+>>>>>>> db10660808d1ba441088f2abffa43c2e16e7694e
         </widget>
        </item>
        <item>
@@ -83,6 +103,8 @@ KNT-119</string>
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

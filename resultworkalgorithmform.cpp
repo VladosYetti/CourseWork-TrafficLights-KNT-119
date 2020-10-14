@@ -9,7 +9,7 @@ ResultWorkAlgorithmForm::ResultWorkAlgorithmForm(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
-    this->setWindowIcon(QIcon(""));
+    this->setWindowIcon(QIcon(":/Img/Recourse/traffic-lights.png"));
 }
 /**************************************************************************************************/
 ResultWorkAlgorithmForm::~ResultWorkAlgorithmForm()

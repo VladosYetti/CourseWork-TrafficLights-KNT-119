@@ -1,4 +1,18 @@
 <RCC>
     <qresource prefix="/Data"/>
-    <qresource prefix="/Img"/>
+    <qresource prefix="/Img">
+        <file>Recourse/about.png</file>
+        <file>Recourse/cleaning-tools (2).png</file>
+        <file>Recourse/confirm.png</file>
+        <file>Recourse/github.png</file>
+        <file>Recourse/link.png</file>
+        <file>Recourse/logout.png</file>
+        <file>Recourse/magnifier.png</file>
+        <file>Recourse/open-file-button.png</file>
+        <file>Recourse/save-file.png</file>
+        <file>Recourse/speedometer.png</file>
+        <file>Recourse/traffic-jam (1).png</file>
+        <file>Recourse/traffic-lights (1).png</file>
+        <file>Recourse/traffic-lights.png</file>
+    </qresource>
 </RCC>

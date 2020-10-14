@@ -53,6 +53,7 @@
     <property name="title">
      <string>Edit</string>
     </property>
+    <addaction name="actionClear"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuAlgorithmes"/>
@@ -103,6 +104,11 @@
   <action name="actionConnection_heck">
    <property name="text">
     <string>Connection Сheck</string>
+   </property>
+  </action>
+  <action name="actionClear">
+   <property name="text">
+    <string>Clear</string>
    </property>
   </action>
  </widget>
