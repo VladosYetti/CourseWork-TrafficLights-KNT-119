@@ -16,21 +16,25 @@ SOURCES += \
     fordfulkersonalgorithmgraph.cpp \
     main.cpp \
     mainwindow.cpp \
-    resultworkalgorithmform.cpp
+    resultworkalgorithmform.cpp \
+    settingform.cpp
 
 HEADERS += \
+    Transfer.h \
     aboutform.h \
     abstractalgorithmgraph.h \
     bfsalgorithmgraph.h \
     dijkstraalgorithmgraph.h \
     fordfulkersonalgorithmgraph.h \
     mainwindow.h \
-    resultworkalgorithmform.h
+    resultworkalgorithmform.h \
+    settingform.h
 
 FORMS += \
     aboutform.ui \
     mainwindow.ui \
-    resultworkalgorithmform.ui
+    resultworkalgorithmform.ui \
+    settingform.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

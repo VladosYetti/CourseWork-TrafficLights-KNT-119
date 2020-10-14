@@ -17,6 +17,9 @@ public:
     explicit AboutForm(QWidget *parent = nullptr);
     ~AboutForm();
 
+private slots:
+    void on_close_clicked();
+
 private:
     Ui::AboutForm *ui;
 };
