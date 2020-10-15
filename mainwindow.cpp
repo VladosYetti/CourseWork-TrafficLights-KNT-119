@@ -14,12 +14,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
     this->setWindowIcon(QIcon(":/Img/Recourse/traffic-lights.png"));
-
-
-
-
-
-
     /**************************************************************************************************/
     QObject::connect(this->dijkstra, &DijkstraAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     QObject::connect(this->fordfulkerson, &FordFulkersonAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);

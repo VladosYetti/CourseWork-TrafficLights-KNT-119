@@ -8,7 +8,7 @@ int AbstractAlgorithmGraph::min(int a, int b) const { return a < b ? a : b; }
 /**************************************************************************************************/
 void AbstractAlgorithmGraph::reverse(QVector<int> &ans)
 {
-    for(size_t i = 0; i < ans.size() / 2; ++i)
+    for(int i = 0; i < ans.size() / 2; ++i)
     {
         int tmp = ans[i];
         ans[i] = ans[ans.size() - i - 1];
