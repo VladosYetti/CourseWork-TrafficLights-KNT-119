@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     , bfs(new BFSAlgorithmGraph)
     , resultworkalgorithmform(new ResultWorkAlgorithmForm(this))
     , aboutform(new AboutForm(this))
+    , scene(new QGraphicsScene())
 {
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
@@ -19,9 +20,13 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(this->fordfulkerson, &FordFulkersonAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     QObject::connect(this->bfs, &BFSAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     /**************************************************************************************************/
+    this->ui->graphicsView->setScene(this->scene);
 
-
-
+    /**************************************************************************************************/
+    QPixmap img;
+    img.load(":/Data/Recourse/map.jpg");
+    this->scene->setSceneRect(0,0,img.width(),img.height());
+    this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 
 
 
@@ -40,6 +45,7 @@ MainWindow::~MainWindow()
     delete this->bfs;
     delete this->resultworkalgorithmform;
     delete this->aboutform;
+    delete this->scene;
 }
 /**************************************************************************************************/
 

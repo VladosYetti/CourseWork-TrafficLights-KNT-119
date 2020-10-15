@@ -1,5 +1,7 @@
 <RCC>
-    <qresource prefix="/Data"/>
+    <qresource prefix="/Data">
+        <file>Recourse/map.jpg</file>
+    </qresource>
     <qresource prefix="/Img">
         <file>Recourse/about.png</file>
         <file>Recourse/cleaning-tools (2).png</file>
@@ -14,5 +16,8 @@
         <file>Recourse/traffic-jam (1).png</file>
         <file>Recourse/traffic-lights (1).png</file>
         <file>Recourse/traffic-lights.png</file>
+        <file>Recourse/background.png</file>
+        <file>Recourse/add.png</file>
+        <file>Recourse/qt.png</file>
     </qresource>
 </RCC>

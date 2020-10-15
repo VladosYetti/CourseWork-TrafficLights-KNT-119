@@ -11,6 +11,7 @@
 #include "aboutform.h"
 #include <QDesktopServices>
 #include <QUrl>
+#include <QGraphicsScene>
 /**************************************************************************************************/
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -47,6 +48,7 @@ private:
     AboutForm* aboutform;
     QVector<QVector<int>>g;
     QVector<int>prev;
+    QGraphicsScene*scene;
 };
 /**************************************************************************************************/
 #endif // MAINWINDOW_H
