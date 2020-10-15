@@ -1,6 +1,5 @@
 #include "resultworkalgorithmform.h"
 #include "ui_resultworkalgorithmform.h"
-
 /**************************************************************************************************/
 ResultWorkAlgorithmForm::ResultWorkAlgorithmForm(QWidget *parent) :
     QDialog(parent),
@@ -17,23 +16,28 @@ ResultWorkAlgorithmForm::~ResultWorkAlgorithmForm()
     delete ui;
 }
 /**************************************************************************************************/
-void ResultWorkAlgorithmForm::setData(QVector<QVector<int> >g, QVector<int>path, int res)
+void ResultWorkAlgorithmForm::setData(TransferGraph obj)
 {
     /**************************************************************************************************/
-    this->g = g;
-    this->prev = path;
+    this->g = obj.g;
+    this->prev = obj.prev;
     QString strPath, strMatrix;
     /**************************************************************************************************/
     this->ui->path->clear();
     this->ui->matrixlist->clear();
     this->ui->result->clear();
     /**************************************************************************************************/
-    this->ui->result->setText(QString::number(res));
+    this->ui->result->setText(QString::number(obj.res));
     /**************************************************************************************************/
-    for(auto&i:this->prev)
+    if(obj.is)
     {
-        strPath += (QString::number(i + 1) + " ");
+        this->ui->Path->setVisible(true);
+        for(auto&i:this->prev)
+        {
+            strPath += (QString::number(i + 1) + " ");
+        }
     }
+    else this->ui->Path->setVisible(false);
     /**************************************************************************************************/
     this->ui->path->setText(strPath);
     /**************************************************************************************************/

@@ -33,7 +33,7 @@ int BFSAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int>& prev, in
     /**************************************************************************************************/
     this->reverse(path);
     /**************************************************************************************************/
-    emit this->GraphPath(g, path, dist[f]);
+    emit this->GraphPath(TransferGraph(true, g, path, dist[f]));
     /**************************************************************************************************/
     return dist[f] == true;
 }

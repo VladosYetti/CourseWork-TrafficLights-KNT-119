@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
 /**************************************************************************************************/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -10,31 +9,26 @@ MainWindow::MainWindow(QWidget *parent)
     , bfs(new BFSAlgorithmGraph)
     , resultworkalgorithmform(new ResultWorkAlgorithmForm(this))
     , aboutform(new AboutForm(this))
-    , scene(new QGraphicsScene())
+    , scene(new QGraphicsScene(this))
+    , timer(new QLabel(this))
 {
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
     this->setWindowIcon(QIcon(":/Img/Recourse/traffic-lights.png"));
+    this->ui->statusbar->addWidget(this->timer);
+    this->startTimer(1000);
+    this->timer->setText(QTime::currentTime().toString("hh:mm:ss"));
     /**************************************************************************************************/
     QObject::connect(this->dijkstra, &DijkstraAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     QObject::connect(this->fordfulkerson, &FordFulkersonAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     QObject::connect(this->bfs, &BFSAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     /**************************************************************************************************/
     this->ui->graphicsView->setScene(this->scene);
-
     /**************************************************************************************************/
     QPixmap img;
     img.load(":/Data/Recourse/map.jpg");
     this->scene->setSceneRect(0,0,img.width(),img.height());
     this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
-
-
-
-
-
-
-
-
 }
 /**************************************************************************************************/
 MainWindow::~MainWindow()
@@ -46,14 +40,14 @@ MainWindow::~MainWindow()
     delete this->resultworkalgorithmform;
     delete this->aboutform;
     delete this->scene;
+    delete this->timer;
 }
 /**************************************************************************************************/
-
 void MainWindow::on_actionAbout_triggered()
 {
     this->aboutform->show();
 }
-
+/**************************************************************************************************/
 void MainWindow::on_actionBest_Route_Planner_triggered()
 {
             int n = 6;
@@ -65,25 +59,25 @@ void MainWindow::on_actionBest_Route_Planner_triggered()
                                       {-1, -1, -1, -1, -1, 0} };
 
             prev = QVector<int>(n, -1);
-            qDebug() << this->dijkstra->Algorithm(g, prev , 0, 5, n);
+            this->dijkstra->Algorithm(g, prev , 0, 5, n);
             this->resultworkalgorithmform->show();
 }
-
+/**************************************************************************************************/
 void MainWindow::on_actionEXIT_triggered()
 {
     if(QMessageBox::question(this, tr("TrafficLightsApp"), tr("Are you sure?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)  QApplication::quit();
 }
-
+/**************************************************************************************************/
 void MainWindow::on_actionQt_triggered()
 {
     QMessageBox::aboutQt(this);
 }
-
+/**************************************************************************************************/
 void MainWindow::on_actionGitHub_triggered()
 {
     QDesktopServices::openUrl(QUrl("https://github.com/VladosYetti/CourseWork-TrafficLights-KNT-119"));
 }
-
+/**************************************************************************************************/
 void MainWindow::on_actionTraffic_ongestion_triggered()
 {
     int n = 6;
@@ -95,10 +89,10 @@ void MainWindow::on_actionTraffic_ongestion_triggered()
                               {-1, -1, -1, -1, -1, 0} };
 
     prev = QVector<int>(n, -1);
-    qDebug() << this->fordfulkerson->Algorithm(g, prev , 0, 5, n);
+    this->fordfulkerson->Algorithm(g, prev , 0, 5, n);
     this->resultworkalgorithmform->show();
 }
-
+/**************************************************************************************************/
 void MainWindow::on_actionConnection_heck_triggered()
 {
     int n = 6;
@@ -110,6 +104,21 @@ void MainWindow::on_actionConnection_heck_triggered()
                               {-1, -1, -1, -1, -1, 0} };
 
     prev = QVector<int>(n, -1);
-    qDebug() << this->bfs->Algorithm(g, prev , 0, 5, n);
+    this->bfs->Algorithm(g, prev , 0, 5, n);
     this->resultworkalgorithmform->show();
 }
+/**************************************************************************************************/
+void MainWindow::on_actionClear_triggered()
+{
+    if(QMessageBox::question(this, tr("TrafficLightsApp"), tr("Are you sure?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+    {
+
+    }
+}
+/**************************************************************************************************/
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+    Q_UNUSED(event);
+    this->timer->setText(QTime::currentTime().toString("hh:mm:ss"));
+}
+/**************************************************************************************************/

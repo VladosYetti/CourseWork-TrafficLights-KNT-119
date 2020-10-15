@@ -4,6 +4,7 @@ FordFulkersonAlgorithmGraph::FordFulkersonAlgorithmGraph(QObject *parent) : Abst
 /**************************************************************************************************/
 int FordFulkersonAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int> &prev, int s, int f, int n)
 {
+    TransferGraph obj; obj.g = g;
     int flow, path = 0;
     /**************************************************************************************************/
     while(bfs->Algorithm(g, prev, s, f, n))
@@ -17,8 +18,11 @@ int FordFulkersonAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int>
         }
         path += flow;
     }
+    obj.is = false;
+    obj.res = path;
+    obj.prev = prev;
     /**************************************************************************************************/
-    emit GraphPath(g, prev, path);
+    emit GraphPath(obj);
     /**************************************************************************************************/
     return path;
 }

@@ -1,7 +1,9 @@
 #pragma once
 #ifndef TRANSFER_H
 #define TRANSFER_H
+/**************************************************************************************************/
 #include <QColor>
+/**************************************************************************************************/
 struct Transfer
 {
     Transfer(QColor color1=Qt::red, QColor color2=Qt::yellow, QColor color3=Qt::green):
@@ -14,4 +16,5 @@ struct Transfer
   int traffic;
   bool mode;
 };
+/**************************************************************************************************/
 #endif // TRANSFER_H

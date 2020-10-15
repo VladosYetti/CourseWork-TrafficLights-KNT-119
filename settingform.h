@@ -1,16 +1,16 @@
 #pragma once
 #ifndef SETTINGFORM_H
 #define SETTINGFORM_H
-
+/**************************************************************************************************/
 #include <QDialog>
 #include <QColorDialog>
 #include <QColor>
 #include "Transfer.h"
-
+/**************************************************************************************************/
 namespace Ui {
 class SettingForm;
 }
-
+/**************************************************************************************************/
 class SettingForm : public QDialog
 {
     Q_OBJECT
@@ -36,5 +36,5 @@ private:
 signals:
     void get(Transfer* transfer);
 };
-
+/**************************************************************************************************/
 #endif // SETTINGFORM_H

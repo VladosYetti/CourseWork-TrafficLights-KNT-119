@@ -12,6 +12,9 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QGraphicsScene>
+#include "TransferGraph.h"
+#include <QLabel>
+#include <QTime>
 /**************************************************************************************************/
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,6 +42,8 @@ private slots:
 
     void on_actionConnection_heck_triggered();
 
+    void on_actionClear_triggered();
+
 private:
     Ui::MainWindow *ui;
     DijkstraAlgorithmGraph* dijkstra;
@@ -49,6 +54,9 @@ private:
     QVector<QVector<int>>g;
     QVector<int>prev;
     QGraphicsScene*scene;
+    QLabel* timer;
+protected:
+    virtual void timerEvent(QTimerEvent* event) override;
 };
 /**************************************************************************************************/
 #endif // MAINWINDOW_H

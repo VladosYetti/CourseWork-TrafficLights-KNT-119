@@ -21,6 +21,7 @@ SOURCES += \
 
 HEADERS += \
     Transfer.h \
+    TransferGraph.h \
     aboutform.h \
     abstractalgorithmgraph.h \
     bfsalgorithmgraph.h \

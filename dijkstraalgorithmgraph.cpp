@@ -43,7 +43,7 @@ int DijkstraAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int>& pre
     /**************************************************************************************************/
     this->reverse(path);
     /**************************************************************************************************/
-    emit GraphPath(g, path, dist[f]);
+    emit GraphPath(TransferGraph(true, g, path, dist[f]));
     /**************************************************************************************************/
     return dist[f];
 }

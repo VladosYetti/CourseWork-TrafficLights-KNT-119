@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QVector>
 #include <QQueue>
-#include <algorithm>
+#include "TransferGraph.h"
 /**************************************************************************************************/
 class AbstractAlgorithmGraph : public QObject
 {
@@ -19,7 +19,7 @@ public:
 protected:
     const int inf = 0x3F3F3F3F;
 signals:
-    void GraphPath(QVector<QVector<int>> g, QVector<int> path, int res);
+    void GraphPath(TransferGraph other);
 };
 /**************************************************************************************************/
 #endif // ABSTRACTALGORITHMGRAPH_H
