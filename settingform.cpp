@@ -24,17 +24,17 @@ void SettingForm::on_Close_clicked()
 
 void SettingForm::on_pushButton_Color1_clicked()
 {
-    this->transfer->color1 = QColorDialog::getColor(Qt::red,this,tr("Choose color"));
+    this->transfer->color_1 = QColorDialog::getColor(Qt::red,this,tr("Choose color"));
 }
 
 void SettingForm::on_pushButton_Color2_clicked()
 {
-    this->transfer->color2 = QColorDialog::getColor(Qt::yellow,this,tr("Choose color"));
+    this->transfer->color_2 = QColorDialog::getColor(Qt::yellow,this,tr("Choose color"));
 }
 
 void SettingForm::on_pushButton_Color3_clicked()
 {
-    this->transfer->color3 = QColorDialog::getColor(Qt::green,this,tr("Choose color"));
+    this->transfer->color_3 = QColorDialog::getColor(Qt::green,this,tr("Choose color"));
 }
 
 void SettingForm::on_Apply_clicked()

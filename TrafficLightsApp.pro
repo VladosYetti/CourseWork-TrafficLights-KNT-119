@@ -17,7 +17,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     resultworkalgorithmform.cpp \
-    settingform.cpp
+    settingform.cpp \
+    trafficlights.cpp
 
 HEADERS += \
     Transfer.h \
@@ -29,7 +30,8 @@ HEADERS += \
     fordfulkersonalgorithmgraph.h \
     mainwindow.h \
     resultworkalgorithmform.h \
-    settingform.h
+    settingform.h \
+    trafficlights.h
 
 FORMS += \
     aboutform.ui \
