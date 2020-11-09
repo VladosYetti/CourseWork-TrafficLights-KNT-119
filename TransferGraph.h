@@ -4,10 +4,20 @@
 /**************************************************************************************************/
 #include <QVector>
 /**************************************************************************************************/
-struct TransferGraph
+class TransferGraph
 {
-    TransferGraph(bool is, QVector<QVector<int>>g, QVector<int>prev, int res) : is(is), g(g), prev(prev), res(res){}
-    TransferGraph() = default;
+public:
+    TransferGraph(bool is, QVector<QVector<int>>g, QVector<int>prev, int res);
+    TransferGraph(void);
+    bool getIs(void) const;
+    QVector<QVector<int>> getG(void);
+    QVector<int> getPrev(void);
+    int getRes(void);
+    void setIs(const bool other);
+    void setG(const QVector<QVector<int>>&other);
+    void setPrev(const QVector<int>&prev);
+    void setRes(const int other);
+private:
     bool is;
     QVector<QVector<int>>g;
     QVector<int>prev;

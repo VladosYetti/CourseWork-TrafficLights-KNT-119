@@ -4,11 +4,23 @@
 /**************************************************************************************************/
 #include <QColor>
 /**************************************************************************************************/
-struct Transfer
+class Transfer
 {
-    Transfer(QColor color_1=Qt::red, QColor color_2=Qt::yellow, QColor color_3=Qt::green):
-        color_1(color_1),color_2(color_2),color_3(color_3){}
-
+public:
+    Transfer(QColor color_1=Qt::red, QColor color_2=Qt::yellow, QColor color_3=Qt::green);
+    QColor getQColor_1(void);
+    QColor getQColor_2(void);
+    QColor getQColor_3(void);
+    int getInterval(void);
+    int getTraffic(void);
+    bool getMode(void);
+    void setQColor_1(const QColor other);
+    void setQColor_2(const QColor other);
+    void setQColor_3(const QColor other);
+    void setInterval(const int other);
+    void setMode(const bool other);
+    void setTraffic(const int other);
+private:
   QColor color_1;
   QColor color_2;
   QColor color_3;

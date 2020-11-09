@@ -6,13 +6,14 @@
 #include <QVector>
 #include <QQueue>
 #include "TransferGraph.h"
+#include "inputdata.h"
 /**************************************************************************************************/
 class AbstractAlgorithmGraph : public QObject
 {
     Q_OBJECT
 public:
     explicit AbstractAlgorithmGraph(QObject *parent = nullptr);
-    virtual int Algorithm(QVector<QVector<int>> g, QVector<int>& prev, int s, int f, int n) = 0;
+    virtual int Algorithm(InputData&) = 0;
     int max(int a, int b) const;
     int min(int a, int b) const;
     void reverse(QVector<int>& ans);

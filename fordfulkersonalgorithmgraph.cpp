@@ -2,25 +2,25 @@
 /**************************************************************************************************/
 FordFulkersonAlgorithmGraph::FordFulkersonAlgorithmGraph(QObject *parent) : AbstractAlgorithmGraph(parent) { this->bfs = new BFSAlgorithmGraph(nullptr); }
 /**************************************************************************************************/
-int FordFulkersonAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int> &prev, int s, int f, int n)
+int FordFulkersonAlgorithmGraph::Algorithm(InputData& data)
 {
-    TransferGraph obj; obj.g = g;
+    TransferGraph obj; obj.setG(data.getG());
     int flow, path = 0;
     /**************************************************************************************************/
-    while(bfs->Algorithm(g, prev, s, f, n))
+    while(bfs->Algorithm(data))
     {
         flow = this->inf;
-        for(int i = f; i != s; i = prev[i]) { flow = this->min(flow, g[prev[i]][i]); }
-        for(int i = f; i != s; i = prev[i])
+        for(int i = data.getFinish(); i != data.getStart(); i = data.getPrev()[i]) { flow = this->min(flow, data.getG()[data.getPrev()[i]][i]); }
+        for(int i = data.getFinish(); i != data.getStart(); i = data.getPrev()[i])
         {
-            g[prev[i]][i] -= flow;
-            g[i][prev[i]] += flow;
+            data.getG()[data.getPrev()[i]][i] -= flow;
+            data.getG()[i][data.getPrev()[i]] += flow;
         }
         path += flow;
     }
-    obj.is = false;
-    obj.res = path;
-    obj.prev = prev;
+    obj.setIs(false);
+    obj.setRes(path);
+    obj.setPrev(data.getPrev());
     /**************************************************************************************************/
     emit GraphPath(obj);
     /**************************************************************************************************/

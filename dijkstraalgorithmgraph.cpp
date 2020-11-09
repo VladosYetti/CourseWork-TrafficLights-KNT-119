@@ -2,28 +2,28 @@
 /**************************************************************************************************/
 DijkstraAlgorithmGraph::DijkstraAlgorithmGraph(QObject *parent) : AbstractAlgorithmGraph(parent) {}
 /**************************************************************************************************/
-int DijkstraAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int>& prev, int s, int f, int n)
+int DijkstraAlgorithmGraph::Algorithm(InputData& data)
 {
     int min_dist, vertex;
-    QVector<int>dist(n, this->inf);
-    QVector<bool>color(n, false);
+    QVector<int>dist(data.getN() + 1, this->inf);
+    QVector<bool>color(data.getN() + 1, false);
     min_dist = 0;
-    vertex = s;
-    dist[s] = 0;
+    vertex = data.getStart();
+    dist[data.getStart()] = 0;
     /**************************************************************************************************/
     while(min_dist != this->inf)
     {
         color[vertex] = true;
-        for(int i = 0; i < n; ++i)
+        for(int i = 0; i < data.getN(); ++i)
         {
-            if(dist[i] > dist[vertex] + g[vertex][i] and g[vertex][i] > 0)
+            if(dist[i] > dist[vertex] + data.getG()[vertex][i] and data.getG()[vertex][i] > 0)
             {
-                dist[i] = dist[vertex] + g[vertex][i];
-                prev[i] = vertex;
+                dist[i] = dist[vertex] + data.getG()[vertex][i];
+                data.getPrev()[i] = vertex;
             }
         }
         min_dist = this->inf;
-        for(int i = 0; i < n; ++i)
+        for(int i = 0; i < data.getN(); ++i)
         {
             if(!color[i] and min_dist > dist[i])
             {
@@ -34,16 +34,16 @@ int DijkstraAlgorithmGraph::Algorithm(QVector<QVector<int>> g, QVector<int>& pre
     }
     /**************************************************************************************************/
     QVector<int>path;
-    int curr = f;
+    int curr = data.getFinish();
     while(curr != -1)
     {
         path.push_back(curr);
-        curr = prev[curr];
+        curr = data.getPrev()[curr];
     }
     /**************************************************************************************************/
     this->reverse(path);
     /**************************************************************************************************/
-    emit GraphPath(TransferGraph(true, g, path, dist[f]));
+    emit GraphPath(TransferGraph(true, data.getG(), path, dist[data.getFinish()]));
     /**************************************************************************************************/
-    return dist[f];
+    return dist[data.getFinish()];
 }

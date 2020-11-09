@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
     , aboutform(new AboutForm(this))
     , scene(new QGraphicsScene(this))
     , timer(new QLabel(this))
+    , work(new working(this))
 {
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
@@ -41,6 +42,8 @@ MainWindow::~MainWindow()
     delete this->aboutform;
     delete this->scene;
     delete this->timer;
+    for(auto&i:this->scene->items()) { delete  i; }
+    delete this->work;
 }
 /**************************************************************************************************/
 void MainWindow::on_actionAbout_triggered()
@@ -50,6 +53,7 @@ void MainWindow::on_actionAbout_triggered()
 /**************************************************************************************************/
 void MainWindow::on_actionBest_Route_Planner_triggered()
 {
+  this->work->show();
             int n = 6;
                                  g ={ {0, 3, 5, -1, -1, -1  },  // For Example
                                       {-1, 0, -1, 7, 5, -1  },
@@ -59,7 +63,9 @@ void MainWindow::on_actionBest_Route_Planner_triggered()
                                       {-1, -1, -1, -1, -1, 0} };
 
             prev = QVector<int>(n, -1);
-            this->dijkstra->Algorithm(g, prev , 0, 5, n);
+            int s = 0, f = 5;
+            InputData obj(g, prev , s, f, n);
+            this->dijkstra->Algorithm(obj);
             this->resultworkalgorithmform->show();
 }
 /**************************************************************************************************/
@@ -80,6 +86,7 @@ void MainWindow::on_actionGitHub_triggered()
 /**************************************************************************************************/
 void MainWindow::on_actionTraffic_ongestion_triggered()
 {
+    this->work->show();
     int n = 6;
                          g ={ {0, 3, 5, -1, -1, -1  },  // For Example
                               {-1, 0, -1, 7, 5, -1  },
@@ -89,12 +96,15 @@ void MainWindow::on_actionTraffic_ongestion_triggered()
                               {-1, -1, -1, -1, -1, 0} };
 
     prev = QVector<int>(n, -1);
-    this->fordfulkerson->Algorithm(g, prev , 0, 5, n);
+    int s = 0, f = 5;
+    InputData obj(g, prev , s, f, n);
+    this->fordfulkerson->Algorithm(obj);
     this->resultworkalgorithmform->show();
 }
 /**************************************************************************************************/
 void MainWindow::on_actionConnection_heck_triggered()
 {
+  this->work->show();
     int n = 6;
                          g ={ {0, 3, 5, -1, -1, -1  },  // For Example
                               {-1, 0, -1, 7, 5, -1  },
@@ -104,7 +114,9 @@ void MainWindow::on_actionConnection_heck_triggered()
                               {-1, -1, -1, -1, -1, 0} };
 
     prev = QVector<int>(n, -1);
-    this->bfs->Algorithm(g, prev , 0, 5, n);
+    int s = 0, f = 5;
+    InputData obj(g, prev , s, f, n);
+    this->bfs->Algorithm(obj);
     this->resultworkalgorithmform->show();
 }
 /**************************************************************************************************/
@@ -112,13 +124,25 @@ void MainWindow::on_actionClear_triggered()
 {
     if(QMessageBox::question(this, tr("TrafficLightsApp"), tr("Are you sure?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
-
+        for(auto&i:this->scene->items()) { delete  i; }
     }
 }
 /**************************************************************************************************/
 void MainWindow::timerEvent(QTimerEvent *event)
 {
     Q_UNUSED(event);
-    this->timer->setText(QTime::currentTime().toString("hh:mm:ss"));
+  this->timer->setText(tr("Current Time: ") + QTime::currentTime().toString("hh:mm:ss"));
 }
 /**************************************************************************************************/
+int MainWindow::randomBetween(int low, int high)
+{
+   return (qrand() % ((high + 1) - low) + low);
+}
+/**************************************************************************************************/
+void MainWindow::on_actionAdd_triggered()
+{
+    TrafficLights* tmp = new TrafficLights(this);
+    this->arr.push_back(tmp);
+    tmp->setPos(randomBetween(30, 470), randomBetween(30,470));
+    scene->addItem(tmp);
+}

@@ -18,18 +18,11 @@ class SettingForm : public QDialog
 public:
     explicit SettingForm(QWidget *parent = nullptr);
     ~SettingForm();
-
 private slots:
-    void on_Close_clicked();
-
     void on_pushButton_Color1_clicked();
-
     void on_pushButton_Color2_clicked();
-
     void on_pushButton_Color3_clicked();
-
     void on_Apply_clicked();
-
 private:
     Ui::SettingForm *ui;
     Transfer* transfer;

@@ -9,16 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Transfer.cpp \
+    TransferGraph.cpp \
     aboutform.cpp \
     abstractalgorithmgraph.cpp \
     bfsalgorithmgraph.cpp \
     dijkstraalgorithmgraph.cpp \
     fordfulkersonalgorithmgraph.cpp \
+    inputdata.cpp \
     main.cpp \
     mainwindow.cpp \
     resultworkalgorithmform.cpp \
     settingform.cpp \
-    trafficlights.cpp
+    trafficlights.cpp \
+    working.cpp
 
 HEADERS += \
     Transfer.h \
@@ -28,16 +32,19 @@ HEADERS += \
     bfsalgorithmgraph.h \
     dijkstraalgorithmgraph.h \
     fordfulkersonalgorithmgraph.h \
+    inputdata.h \
     mainwindow.h \
     resultworkalgorithmform.h \
     settingform.h \
-    trafficlights.h
+    trafficlights.h \
+    working.h
 
 FORMS += \
     aboutform.ui \
     mainwindow.ui \
     resultworkalgorithmform.ui \
-    settingform.ui
+    settingform.ui \
+    working.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

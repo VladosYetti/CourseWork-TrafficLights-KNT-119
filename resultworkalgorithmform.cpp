@@ -19,17 +19,16 @@ ResultWorkAlgorithmForm::~ResultWorkAlgorithmForm()
 void ResultWorkAlgorithmForm::setData(TransferGraph obj)
 {
     /**************************************************************************************************/
-    this->g = obj.g;
-    this->prev = obj.prev;
+    this->g = obj.getG();
+    this->prev = obj.getPrev();
     QString strPath, strMatrix;
     /**************************************************************************************************/
     this->ui->path->clear();
-    this->ui->matrixlist->clear();
     this->ui->result->clear();
     /**************************************************************************************************/
-    this->ui->result->setText(QString::number(obj.res));
+    this->ui->result->setText(QString::number(obj.getRes()));
     /**************************************************************************************************/
-    if(obj.is)
+    if(obj.getIs())
     {
         this->ui->Path->setVisible(true);
         for(auto&i:this->prev)
@@ -41,15 +40,6 @@ void ResultWorkAlgorithmForm::setData(TransferGraph obj)
     /**************************************************************************************************/
     this->ui->path->setText(strPath);
     /**************************************************************************************************/
-    for(int i = 0; i  < this->g.size(); ++i)
-    {
-        strMatrix.clear();
-        for(int j = 0; j < this->g[i].size(); ++j)
-        {
-            strMatrix += QString::number(g[i][j]) + "\t";
-        }
-        this->ui->matrixlist->addItem(strMatrix);
-    }
 }
 /**************************************************************************************************/
 void ResultWorkAlgorithmForm::on_Close_clicked()
