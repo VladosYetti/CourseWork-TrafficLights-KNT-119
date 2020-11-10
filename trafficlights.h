@@ -39,6 +39,8 @@ public:
     int getTraffic(void) const;
     void Update(void);
     ~TrafficLights();
+    public slots:
+    void input(Transfer* other);
 private:
     SettingForm *setting;
     Transfer *transfer;

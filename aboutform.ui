@@ -57,6 +57,11 @@
        </item>
        <item>
         <widget class="QLabel" name="about">
+         <property name="font">
+          <font>
+           <pointsize>12</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>TrafficLightsApp
 Ver.1.0

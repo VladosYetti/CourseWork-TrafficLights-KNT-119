@@ -38,6 +38,8 @@ private slots:
     void on_actionConnection_heck_triggered();
     void on_actionClear_triggered();
     void on_actionAdd_triggered();
+    void on_actionconnect_triggered();
+
 private:
     Ui::MainWindow *ui;
     DijkstraAlgorithmGraph* dijkstra;

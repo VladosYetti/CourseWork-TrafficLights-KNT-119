@@ -19,5 +19,6 @@
         <file>Recourse/background.png</file>
         <file>Recourse/add.png</file>
         <file>Recourse/qt.png</file>
+        <file>Recourse/color-circle.png</file>
     </qresource>
 </RCC>

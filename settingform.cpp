@@ -14,7 +14,7 @@ SettingForm::SettingForm(QWidget *parent) :
 SettingForm::~SettingForm()
 {
     delete ui;
-    //delete transfer;
+    delete transfer;
 }
 /**************************************************************************************************/
 void SettingForm::on_pushButton_Color1_clicked()

@@ -146,3 +146,8 @@ void MainWindow::on_actionAdd_triggered()
     tmp->setPos(randomBetween(30, 470), randomBetween(30,470));
     scene->addItem(tmp);
 }
+/**************************************************************************************************/
+void MainWindow::on_actionconnect_triggered()
+{
+    this->work->show();
+}
