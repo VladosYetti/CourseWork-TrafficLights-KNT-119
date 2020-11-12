@@ -11,6 +11,7 @@ TrafficLights::TrafficLights(
                              QColor color_4
                              ):QObject(parents),
                              setting(new SettingForm()),
+                             transfer(new  Transfer()),
                              color_1(color_1),
                              color_2(color_2),
                              color_3(color_3),
@@ -39,7 +40,8 @@ TrafficLights::TrafficLights(
           }
       });
   /**************************************************************************************************/
-  QObject::connect(setting,SIGNAL(get(Transfer*)),this, SLOT(input(Transfer*)));
+  QObject::connect(setting,&SettingForm::get,this, &TrafficLights::input);
+  QObject::connect(this, &TrafficLights::updateData,this->setting, &SettingForm::setData);
 }
 /**************************************************************************************************/
 QColor TrafficLights::getColor_1() const
@@ -65,16 +67,22 @@ QColor TrafficLights::getCurrColor() const
 void TrafficLights::setColor_1(const QColor other)
 {
   this->color_1 = other;
+  this->transfer->setQColor_1(other);
+  emit updateData(*this->transfer);
 }
 /**************************************************************************************************/
 void TrafficLights::setColor_2(const QColor other)
 {
   this->color_2 = other;
+  this->transfer->setQColor_2(other);
+  emit updateData(*this->transfer);
 }
 /**************************************************************************************************/
 void TrafficLights::setColor_3(const QColor other)
 {
   this->color_3 = other;
+  this->transfer->setQColor_3(other);
+  emit updateData(*this->transfer);
 }
 /**************************************************************************************************/
 bool TrafficLights::getMode() const
@@ -85,11 +93,23 @@ bool TrafficLights::getMode() const
 void TrafficLights::setMode(const bool other)
 {
   this->isOn = other;
+  this->transfer->setMode(other);
+  if(this->isOn == true) { this->timer->start(); this->curr_color = this->color_1; }
+  else {this->curr_color = this->color_4; update(); this->timer->stop(); }
+  emit updateData(*this->transfer);
 }
 /**************************************************************************************************/
 int TrafficLights::getInterval() const
 {
   return this->interval;
+}
+/**************************************************************************************************/
+void TrafficLights::setInterval(const int interval)
+{
+  this->interval = interval;
+  this->transfer->setInterval(interval);
+  this->timer->setInterval(interval);
+  emit updateData(*this->transfer);
 }
 /**************************************************************************************************/
 int TrafficLights::getIndex() const
@@ -100,6 +120,13 @@ int TrafficLights::getIndex() const
 void TrafficLights::setConnect(const bool other)
 {
   this->connect = other;
+}
+/**************************************************************************************************/
+void TrafficLights::setTraffic(const int traffic)
+{
+  this->traffic = traffic;
+  this->transfer->setTraffic(traffic);
+  emit updateData(*this->transfer);
 }
 /**************************************************************************************************/
 int TrafficLights::getTraffic() const
@@ -120,15 +147,21 @@ TrafficLights::~TrafficLights()
   this->connect = false;
 }
 /**************************************************************************************************/
-void TrafficLights::input(Transfer *other)
+void TrafficLights::input(Transfer other)
 {
-  this->color_1 = other->getQColor_1();
-  this->color_2 = other->getQColor_2();
-  this->color_3 = other->getQColor_3();
-  this->interval = other->getInterval();
+  this->color_1 = other.getQColor_1();
+  this->transfer->setInterval(other.getInterval());
+  this->transfer->setMode(other.getMode());
+  this->transfer->setQColor_1(other.getQColor_1());
+  this->transfer->setQColor_2(other.getQColor_2());
+  this->transfer->setQColor_3(other.getQColor_3());
+  this->transfer->setTraffic(other.getTraffic());
+  this->color_2 = other.getQColor_2();
+  this->color_3 = other.getQColor_3();
+  this->interval = other.getInterval();
   this->timer->setInterval(this->interval);
-  this->isOn = other->getMode();
-  this->traffic = other->getTraffic();
+  this->isOn = other.getMode();
+  this->traffic = other.getTraffic();
   if(this->isOn == true) { this->timer->start(); this->curr_color = this->color_1; }
   else {this->curr_color = this->color_4; update(); this->timer->stop(); }
 }
@@ -136,7 +169,8 @@ void TrafficLights::input(Transfer *other)
 void TrafficLights::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 {
   Q_UNUSED(event);
-  this->setting->setWindowTitle(tr("TrafficLightsApp Node"));
+  this->setting->setWindowTitle(tr("TrafficLightsApp Node [") + QString::number(this->index) + "]");
+  emit updateData(*this->transfer);
   this->setting->show();
 }
 /**************************************************************************************************/

@@ -23,11 +23,13 @@ private slots:
     void on_pushButton_Color2_clicked();
     void on_pushButton_Color3_clicked();
     void on_Apply_clicked();
+public slots:
+    void setData(Transfer transfer);
 private:
     Ui::SettingForm *ui;
     Transfer* transfer;
 signals:
-    void get(Transfer* transfer);
+    void get(Transfer transfer);
 };
 /**************************************************************************************************/
 #endif // SETTINGFORM_H

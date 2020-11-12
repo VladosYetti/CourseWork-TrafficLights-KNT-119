@@ -39,7 +39,8 @@ private slots:
     void on_actionClear_triggered();
     void on_actionAdd_triggered();
     void on_actionconnect_triggered();
-
+    void on_DayMode_clicked();
+    void on_NightMode_clicked();
 private:
     Ui::MainWindow *ui;
     DijkstraAlgorithmGraph* dijkstra;

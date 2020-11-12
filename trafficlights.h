@@ -40,7 +40,7 @@ public:
     void Update(void);
     ~TrafficLights();
     public slots:
-    void input(Transfer* other);
+    void input(Transfer other);
 private:
     SettingForm *setting;
     Transfer *transfer;
@@ -64,6 +64,8 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent*event) override;
     virtual QRectF boundingRect() const override;
     void doDrawing(QPainter *painter, QColor other);
+ signals:
+    void updateData(Transfer other);
 };
 /**************************************************************************************************/
 #endif // TRAFFICLIGHTS_H

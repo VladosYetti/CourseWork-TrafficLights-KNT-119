@@ -1,5 +1,6 @@
 #include "Transfer.h"
-Transfer::Transfer(QColor color_1, QColor color_2, QColor color_3) : color_1(color_1),color_2(color_2),color_3(color_3){}
+Transfer::Transfer(QColor color_1, QColor color_2, QColor color_3, int interval, int traffic, bool mode)
+  : color_1(color_1),color_2(color_2),color_3(color_3), interval(interval), traffic(traffic), mode(mode){}
 /**************************************************************************************************/
 QColor Transfer::getQColor_1() { return this->color_1; }
 /**************************************************************************************************/

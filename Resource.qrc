@@ -20,5 +20,8 @@
         <file>Recourse/add.png</file>
         <file>Recourse/qt.png</file>
         <file>Recourse/color-circle.png</file>
+        <file>Recourse/1.jpg</file>
+        <file>Recourse/2.jpg</file>
+        <file>Recourse/3.jpg</file>
     </qresource>
 </RCC>

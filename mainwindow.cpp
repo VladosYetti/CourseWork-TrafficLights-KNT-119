@@ -151,3 +151,26 @@ void MainWindow::on_actionconnect_triggered()
 {
     this->work->show();
 }
+/**************************************************************************************************/
+void MainWindow::on_DayMode_clicked()
+{
+    if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
+    for(auto i : this->arr)
+    {
+        i->setTraffic(randomBetween(20,70));
+        i->setInterval(randomBetween(1000,100000));
+        i->setMode(true);
+    }
+}
+/**************************************************************************************************/
+void MainWindow::on_NightMode_clicked()
+{
+  if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
+  for(auto i : this->arr)
+  {
+      i->setTraffic(randomBetween(1,60));
+      i->setInterval(randomBetween(1000,1000000));
+      i->setMode(true);
+  }
+}
+/**************************************************************************************************/

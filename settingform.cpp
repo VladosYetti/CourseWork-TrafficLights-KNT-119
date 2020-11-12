@@ -42,7 +42,15 @@ void SettingForm::on_Apply_clicked()
     else{
          this->transfer->setMode(false);
     }
-    emit get(transfer);
+    emit get(*transfer);
     this->close();
+}
+/**************************************************************************************************/
+void SettingForm::setData(Transfer transfer)
+{
+  this->ui->Traffic_spinBox->setValue(transfer.getTraffic());
+  this->ui->interval_slider->setValue(transfer.getInterval());
+  if(transfer.getMode() == true) this->ui->on->setChecked(true);
+  else this->ui->on->setChecked(false);
 }
 /**************************************************************************************************/

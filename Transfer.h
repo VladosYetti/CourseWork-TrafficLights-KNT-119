@@ -7,7 +7,7 @@
 class Transfer
 {
 public:
-    Transfer(QColor color_1=Qt::red, QColor color_2=Qt::yellow, QColor color_3=Qt::green);
+    explicit Transfer(QColor color_1=Qt::red, QColor color_2=Qt::yellow, QColor color_3=Qt::green, int interval = 1000, int traffic = 0, bool mode = false);
     QColor getQColor_1(void);
     QColor getQColor_2(void);
     QColor getQColor_3(void);
