@@ -37,6 +37,7 @@ public:
     void setConnect(const bool);
     void setTraffic(const int);
     int getTraffic(void) const;
+    void setResAlgorithm(void);
     void Update(void);
     ~TrafficLights();
     public slots:
@@ -64,6 +65,7 @@ protected:
     virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent*event) override;
     virtual QRectF boundingRect() const override;
     void doDrawing(QPainter *painter, QColor other);
+    const QColor color_Algorithm = Qt::darkCyan;
  signals:
     void updateData(Transfer other);
 };

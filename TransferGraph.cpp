@@ -1,19 +1,12 @@
 #include "TransferGraph.h"
 /**************************************************************************************************/
-TransferGraph::TransferGraph(bool is, QVector<QVector<int> > g, QVector<int> prev, int res): is(is), g(g), prev(prev), res(res){}
-/**************************************************************************************************/
-bool TransferGraph::getIs() const { return this->is; }
+TransferGraph::TransferGraph(QString algorithm,  QVector<QVector<int> > g, QVector<int> prev, int res): algorithm(algorithm), g(g), prev(prev), res(res){}
 /**************************************************************************************************/
 QVector<QVector<int> > TransferGraph::getG(){return this->g;}
 /**************************************************************************************************/
 QVector<int> TransferGraph::getPrev(){return this->prev;}
 /**************************************************************************************************/
 int TransferGraph::getRes() {return this->res;}
-/**************************************************************************************************/
-void TransferGraph::setIs(const bool other)
-{
-  this->is = other;
-}
 /**************************************************************************************************/
 void TransferGraph::setG(const QVector<QVector<int> > &other)
 {
@@ -28,6 +21,16 @@ void TransferGraph::setPrev(const QVector<int> &other)
 void TransferGraph::setRes(const int other)
 {
   this->res = other;
+}
+/**************************************************************************************************/
+void TransferGraph::setAlgorithm(const QString algorithm)
+{
+  this->algorithm = algorithm;
+}
+/**************************************************************************************************/
+QString TransferGraph::getAlgorithm() const
+{
+  return this->algorithm;
 }
 /**************************************************************************************************/
 TransferGraph::TransferGraph() = default;

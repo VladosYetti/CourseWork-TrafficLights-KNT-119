@@ -33,7 +33,7 @@ int BFSAlgorithmGraph::Algorithm(InputData& data)
     /**************************************************************************************************/
     this->reverse(path);
     /**************************************************************************************************/
-    emit this->GraphPath(TransferGraph(true, data.getG(), path, dist[data.getFinish() - 1]));
+    emit this->GraphPath(TransferGraph("BFS", data.getG(), path, dist[data.getFinish() - 1]));
     /**************************************************************************************************/
     return dist[data.getFinish() - 1] == true;
 }

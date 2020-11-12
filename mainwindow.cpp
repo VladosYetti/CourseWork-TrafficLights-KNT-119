@@ -53,6 +53,7 @@ void MainWindow::on_actionAbout_triggered()
 /**************************************************************************************************/
 void MainWindow::on_actionBest_Route_Planner_triggered()
 {
+  if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
   this->work->show();
             int n = 6;
                                  g ={ {0, 3, 5, -1, -1, -1  },  // For Example
@@ -86,6 +87,7 @@ void MainWindow::on_actionGitHub_triggered()
 /**************************************************************************************************/
 void MainWindow::on_actionTraffic_ongestion_triggered()
 {
+  if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
     this->work->show();
     int n = 6;
                          g ={ {0, 3, 5, -1, -1, -1  },  // For Example
@@ -104,6 +106,7 @@ void MainWindow::on_actionTraffic_ongestion_triggered()
 /**************************************************************************************************/
 void MainWindow::on_actionConnection_heck_triggered()
 {
+  if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
   this->work->show();
     int n = 6;
                          g ={ {0, 3, 5, -1, -1, -1  },  // For Example
@@ -168,9 +171,15 @@ void MainWindow::on_NightMode_clicked()
   if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
   for(auto i : this->arr)
   {
-      i->setTraffic(randomBetween(1,60));
+      i->setTraffic(randomBetween(1,50));
       i->setInterval(randomBetween(1000,1000000));
       i->setMode(true);
   }
+}
+/**************************************************************************************************/
+void MainWindow::on_Start_clicked()
+{
+    if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
+    for(auto& i : this->arr) { i->setMode(true); }
 }
 /**************************************************************************************************/

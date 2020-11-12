@@ -5,6 +5,7 @@ FordFulkersonAlgorithmGraph::FordFulkersonAlgorithmGraph(QObject *parent) : Abst
 int FordFulkersonAlgorithmGraph::Algorithm(InputData& data)
 {
     TransferGraph obj; obj.setG(data.getG());
+    obj.setAlgorithm("FORD-FULKERSON");
     int flow, path = 0;
     /**************************************************************************************************/
     while(bfs->Algorithm(data))
@@ -18,7 +19,6 @@ int FordFulkersonAlgorithmGraph::Algorithm(InputData& data)
         }
         path += flow;
     }
-    obj.setIs(false);
     obj.setRes(path);
     obj.setPrev(data.getPrev());
     /**************************************************************************************************/

@@ -106,7 +106,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="ResultGroup">
      <property name="title">
       <string>Result</string>
      </property>

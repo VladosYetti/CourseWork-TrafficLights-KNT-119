@@ -134,6 +134,11 @@ int TrafficLights::getTraffic() const
   return this->traffic;
 }
 /**************************************************************************************************/
+void TrafficLights::setResAlgorithm()
+{
+
+}
+/**************************************************************************************************/
 void TrafficLights::Update()
 {
   this->update();

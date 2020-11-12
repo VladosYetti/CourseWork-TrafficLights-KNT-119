@@ -11,7 +11,7 @@
 namespace Ui {
 class ResultWorkAlgorithmForm;
 }
-
+/**************************************************************************************************/
 class ResultWorkAlgorithmForm : public QDialog
 {
     Q_OBJECT
@@ -23,7 +23,10 @@ public slots:
 
 private slots:
     void on_Close_clicked();
+    void on_Viev_clicked();
 
+signals:
+    void path(QVector<int>);
 private:
     Ui::ResultWorkAlgorithmForm *ui;
     QVector<QVector<int>>g;

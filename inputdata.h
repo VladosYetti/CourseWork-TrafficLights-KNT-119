@@ -6,8 +6,8 @@
 class InputData
 {
 public:
-  InputData(QVector<QVector<int>>&g, QVector<int>&prev, int& s, int& f, int& n);
-  InputData(void);
+  explicit InputData(QVector<QVector<int>>&g, QVector<int>&prev, int& s, int& f, int& n);
+  explicit InputData(void);
   QVector<QVector<int>>& getG(void);
   void setG(QVector<QVector<int>>&g);
   QVector<int>& getPrev(void);

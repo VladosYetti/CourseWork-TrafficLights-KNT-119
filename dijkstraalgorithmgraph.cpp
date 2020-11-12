@@ -43,7 +43,7 @@ int DijkstraAlgorithmGraph::Algorithm(InputData& data)
     /**************************************************************************************************/
     this->reverse(path);
     /**************************************************************************************************/
-    emit GraphPath(TransferGraph(true, data.getG(), path, dist[data.getFinish()]));
+    emit GraphPath(TransferGraph("DIJKSTRA", data.getG(), path, dist[data.getFinish()]));
     /**************************************************************************************************/
     return dist[data.getFinish()];
 }
