@@ -20,11 +20,9 @@ public:
     ~ResultWorkAlgorithmForm();
 public slots:
     void setData(TransferGraph obj);
-
 private slots:
     void on_Close_clicked();
     void on_Viev_clicked();
-
 signals:
     void path(QVector<int>);
 private:

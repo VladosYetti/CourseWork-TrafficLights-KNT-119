@@ -15,6 +15,12 @@ class working : public QDialog
 public:
   explicit working(QWidget *parent = nullptr);
   ~working();
+public slots:
+  void setMaxSizeConnect(int);
+signals:
+  void getConnect(int a, int b);
+private slots:
+  void on_Connect_clicked();
 
 private:
   Ui::working *ui;

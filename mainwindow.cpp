@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     , scene(new QGraphicsScene(this))
     , timer(new QLabel(this))
     , work(new working(this))
+    , helpform(new HelpForm(this))
 {
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
@@ -23,11 +24,20 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(this->dijkstra, &DijkstraAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     QObject::connect(this->fordfulkerson, &FordFulkersonAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
     QObject::connect(this->bfs, &BFSAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
+    QObject::connect(this, &MainWindow::MaxSizeConnect, this->work, &working::setMaxSizeConnect);
+    QObject::connect(this->work, &working::getConnect, [this](int a, int b)
+    {
+       this->arr[a - 1]->setConnect(true);
+       QLineF line;
+       line.setP1(this->arr[a - 1]->scenePos());
+       line.setP2(this->arr[b - 1]->scenePos());
+       this->scene->addLine(line);
+    });
     /**************************************************************************************************/
     this->ui->graphicsView->setScene(this->scene);
     /**************************************************************************************************/
     QPixmap img;
-    img.load(":/Data/Recourse/map.jpg");
+    img.load(":/Data/Recourse/MapDay.jpg");
     this->scene->setSceneRect(0,0,img.width(),img.height());
     this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
@@ -44,6 +54,7 @@ MainWindow::~MainWindow()
     delete this->timer;
     for(auto&i:this->scene->items()) { delete  i; }
     delete this->work;
+    delete this->helpform;
 }
 /**************************************************************************************************/
 void MainWindow::on_actionAbout_triggered()
@@ -127,6 +138,7 @@ void MainWindow::on_actionClear_triggered()
 {
     if(QMessageBox::question(this, tr("TrafficLightsApp"), tr("Are you sure?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
     {
+        this->arr.clear();
         for(auto&i:this->scene->items()) { delete  i; }
     }
 }
@@ -146,40 +158,52 @@ void MainWindow::on_actionAdd_triggered()
 {
     TrafficLights* tmp = new TrafficLights(this);
     this->arr.push_back(tmp);
-    tmp->setPos(randomBetween(30, 470), randomBetween(30,470));
+    tmp->setPos(randomBetween(40, 600), randomBetween(30,470));
     scene->addItem(tmp);
 }
 /**************************************************************************************************/
 void MainWindow::on_actionconnect_triggered()
 {
+    if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
     this->work->show();
+    emit this->MaxSizeConnect(this->arr.size());
 }
 /**************************************************************************************************/
 void MainWindow::on_DayMode_clicked()
 {
-    if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
-    for(auto i : this->arr)
-    {
-        i->setTraffic(randomBetween(20,70));
-        i->setInterval(randomBetween(1000,100000));
-        i->setMode(true);
-    }
+    QPixmap img;
+    img.load(":/Data/Recourse/MapDay.jpg");
+    this->scene->setSceneRect(0,0,img.width(),img.height());
+    this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
 /**************************************************************************************************/
 void MainWindow::on_NightMode_clicked()
 {
-  if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
-  for(auto i : this->arr)
-  {
-      i->setTraffic(randomBetween(1,50));
-      i->setInterval(randomBetween(1000,1000000));
-      i->setMode(true);
-  }
+  QPixmap img;
+  img.load(":/Data/Recourse/MapNight.jpg");
+  this->scene->setSceneRect(0,0,img.width(),img.height());
+  this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
 /**************************************************************************************************/
 void MainWindow::on_Start_clicked()
 {
     if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
-    for(auto& i : this->arr) { i->setMode(true); }
+    for(auto i : this->arr)
+    {
+        i->setTraffic(randomBetween(1,50));
+        i->setInterval(randomBetween(1000,1000000));
+        i->setMode(true);
+    }
+}
+/**************************************************************************************************/
+void MainWindow::on_Stop_clicked()
+{
+  if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
+  for(auto i : this->arr) i->setMode(false);
+}
+/**************************************************************************************************/
+void MainWindow::on_actionHelp_triggered()
+{
+    this->helpform->show();
 }
 /**************************************************************************************************/

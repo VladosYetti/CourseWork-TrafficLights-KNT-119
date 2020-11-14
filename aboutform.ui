@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>260</width>
-    <height>240</height>
+    <width>370</width>
+    <height>380</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>260</width>
-    <height>240</height>
+    <width>370</width>
+    <height>380</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>260</width>
-    <height>240</height>
+    <width>370</width>
+    <height>380</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -78,6 +78,20 @@ KNT-119</string>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="Duties">
+           <property name="text">
+            <string>Duties</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="About">
+           <property name="text">
+            <string>About</string>
+           </property>
+          </widget>
+         </item>
          <item>
           <spacer name="horizontalSpacer">
            <property name="orientation">

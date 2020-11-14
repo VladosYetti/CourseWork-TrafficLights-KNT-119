@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/Data">
-        <file>Recourse/map.jpg</file>
+        <file>Recourse/MapDay.jpg</file>
+        <file>Recourse/MapNight.jpg</file>
+        <file>Recourse/Dyties.txt</file>
     </qresource>
     <qresource prefix="/Img">
         <file>Recourse/about.png</file>

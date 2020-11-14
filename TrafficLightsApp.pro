@@ -16,6 +16,7 @@ SOURCES += \
     bfsalgorithmgraph.cpp \
     dijkstraalgorithmgraph.cpp \
     fordfulkersonalgorithmgraph.cpp \
+    helpform.cpp \
     inputdata.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -32,6 +33,7 @@ HEADERS += \
     bfsalgorithmgraph.h \
     dijkstraalgorithmgraph.h \
     fordfulkersonalgorithmgraph.h \
+    helpform.h \
     inputdata.h \
     mainwindow.h \
     resultworkalgorithmform.h \
@@ -41,6 +43,7 @@ HEADERS += \
 
 FORMS += \
     aboutform.ui \
+    helpform.ui \
     mainwindow.ui \
     resultworkalgorithmform.ui \
     settingform.ui \

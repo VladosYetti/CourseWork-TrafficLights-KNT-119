@@ -17,6 +17,7 @@
 #include <QTime>
 #include "trafficlights.h"
 #include "working.h"
+#include "helpform.h"
 /**************************************************************************************************/
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,6 +29,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+signals:
+    void MaxSizeConnect(int size);
 private slots:
     void on_actionAbout_triggered();
     void on_actionBest_Route_Planner_triggered();
@@ -42,6 +45,8 @@ private slots:
     void on_DayMode_clicked();
     void on_NightMode_clicked();
     void on_Start_clicked();
+    void on_Stop_clicked();
+    void on_actionHelp_triggered();
 
 private:
     Ui::MainWindow *ui;
@@ -56,6 +61,7 @@ private:
     QGraphicsScene*scene;
     QLabel* timer;
     working* work;
+    HelpForm* helpform;
 protected:
     virtual void timerEvent(QTimerEvent* event) override;
     static int randomBetween(int low, int high);

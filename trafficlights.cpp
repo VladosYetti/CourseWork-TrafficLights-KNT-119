@@ -211,8 +211,10 @@ QRectF TrafficLights::boundingRect() const
 void TrafficLights::doDrawing(QPainter *painter, QColor other)
 {
   painter->setPen(Qt::black);
+  painter->setRenderHint(QPainter::HighQualityAntialiasing);
   painter->setBrush(other);
-  painter->drawEllipse(-10, -10, 20, 20);
-  painter->drawText(-10, 20, QString::number(this->index));
+  painter->drawEllipse(-10, -10, 30, 30);
+  painter->setPen(Qt::red);
+  painter->drawText(-10, 30, QString::number(this->index));
 }
 /**************************************************************************************************/

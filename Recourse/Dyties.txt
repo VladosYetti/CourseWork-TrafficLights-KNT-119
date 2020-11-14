@@ -1,0 +1,21 @@
+Vladislav Horobets
+- Algorithms
+- Abstract class
+- TrafficLight
+- Change Day/Night Mode
+- resultworkalgorithmform
+- inputdata
+- TransferGraph
+
+Danil Degtarenko
+- aboutform
+- Transfer
+- settingform
+- workingform
+- helpform
+
+Alexey Pokrepow
+- none
+
+Danil Sviridenko
+- none

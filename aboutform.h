@@ -4,6 +4,10 @@
 /**************************************************************************************************/
 #include <QDialog>
 #include <QIcon>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QFile>
+#include <QTextStream>
 /**************************************************************************************************/
 namespace Ui {
 class AboutForm;
@@ -19,6 +23,10 @@ public:
 
 private slots:
     void on_close_clicked();
+
+    void on_Duties_clicked();
+
+    void on_About_clicked();
 
 private:
     Ui::AboutForm *ui;

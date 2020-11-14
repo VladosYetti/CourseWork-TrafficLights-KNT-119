@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>750</width>
-    <height>550</height>
+    <width>1440</width>
+    <height>850</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>750</width>
-    <height>550</height>
+    <width>1440</width>
+    <height>850</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>750</width>
-    <height>550</height>
+    <width>1440</width>
+    <height>850</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -36,6 +36,13 @@
        <widget class="QPushButton" name="Start">
         <property name="text">
          <string>Start</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="Stop">
+        <property name="text">
+         <string>Stop</string>
         </property>
        </widget>
       </item>
@@ -75,7 +82,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>750</width>
+     <width>1440</width>
      <height>21</height>
     </rect>
    </property>
@@ -85,7 +92,6 @@
     </property>
     <addaction name="actionSave_AS"/>
     <addaction name="actionOpen"/>
-    <addaction name="actionBackground"/>
    </widget>
    <widget class="QMenu" name="menuAlgorithmes">
     <property name="title">
@@ -100,6 +106,7 @@
      <string>About</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionHelp"/>
     <addaction name="separator"/>
     <addaction name="actionGitHub"/>
     <addaction name="actionQt"/>
@@ -153,7 +160,6 @@
    </attribute>
    <addaction name="actionSave_AS"/>
    <addaction name="actionOpen"/>
-   <addaction name="actionBackground"/>
    <addaction name="separator"/>
    <addaction name="actionTraffic_ongestion"/>
    <addaction name="actionBest_Route_Planner"/>
@@ -276,13 +282,9 @@
     <string>Connect</string>
    </property>
   </action>
-  <action name="actionBackground">
-   <property name="icon">
-    <iconset resource="Resource.qrc">
-     <normaloff>:/Img/Recourse/background.png</normaloff>:/Img/Recourse/background.png</iconset>
-   </property>
+  <action name="actionHelp">
    <property name="text">
-    <string>Background</string>
+    <string>Help</string>
    </property>
   </action>
  </widget>

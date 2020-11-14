@@ -29,7 +29,10 @@ void ResultWorkAlgorithmForm::setData(TransferGraph obj)
     if(obj.getAlgorithm() == "BFS")
     {
         this->ui->Viev->setVisible(true);
-        this->ui->ResultGroup->setVisible(false);
+        this->ui->Text_Yellow->setVisible(false);
+        this->ui->Yellow->setVisible(false);
+        this->ui->Text_Green->setText("1");
+        this->ui->Text_Red->setText("0");
         this->ui->path->setVisible(true);
         this->ui->Path->setVisible(true);
         this->prev = obj.getPrev();
@@ -38,11 +41,13 @@ void ResultWorkAlgorithmForm::setData(TransferGraph obj)
           strPath += QString::number(i + 1) + " ";
         }
         this->ui->path->setText(strPath);
-        if(obj.getRes() == 1) this->ui->result->setText("All right, have a good trip");
-        else this->ui->result->setText("Stop");
+        if(obj.getRes() == 1) this->ui->result->setText("1 Start");
+        else this->ui->result->setText("2 Stop");
     }
     else if(obj.getAlgorithm() == "DIJKSTRA")
     {
+        this->ui->Text_Yellow->setVisible(true);
+        this->ui->Yellow->setVisible(true);
         this->ui->Viev->setVisible(true);
         this->ui->ResultGroup->setVisible(true);
         this->ui->Viev->setVisible(true);
@@ -62,6 +67,8 @@ void ResultWorkAlgorithmForm::setData(TransferGraph obj)
     }
     else if(obj.getAlgorithm() == "FORD-FULKERSON")
     {
+        this->ui->Text_Yellow->setVisible(true);
+        this->ui->Yellow->setVisible(true);
         this->ui->Viev->setVisible(false);
         this->ui->ResultGroup->setVisible(true);
         this->ui->path->setVisible(false);
