@@ -169,6 +169,7 @@ void TrafficLights::input(Transfer other)
   this->traffic = other.getTraffic();
   if(this->isOn == true) { this->timer->start(); this->curr_color = this->color_1; }
   else {this->curr_color = this->color_4; update(); this->timer->stop(); }
+  emit change();
 }
 /**************************************************************************************************/
 void TrafficLights::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)

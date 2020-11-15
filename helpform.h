@@ -17,6 +17,9 @@ public:
   explicit HelpForm(QWidget *parent = nullptr);
   ~HelpForm();
 
+private slots:
+  void on_Close_clicked();
+
 private:
   Ui::HelpForm *ui;
 };

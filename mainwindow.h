@@ -18,6 +18,7 @@
 #include "trafficlights.h"
 #include "working.h"
 #include "helpform.h"
+#include "road.h"
 /**************************************************************************************************/
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -32,6 +33,7 @@ public:
 signals:
     void MaxSizeConnect(int size);
     void MaxSizeAlgorithm(int size, QString str);
+    void changeMatrix();
 private slots:
     void on_actionAbout_triggered();
     void on_actionBest_Route_Planner_triggered();
@@ -48,6 +50,7 @@ private slots:
     void on_Start_clicked();
     void on_Stop_clicked();
     void on_actionHelp_triggered();
+    void change();
 private:
     Ui::MainWindow *ui;
     DijkstraAlgorithmGraph* dijkstra;
@@ -58,6 +61,7 @@ private:
     QVector<QVector<int>>g;
     QVector<QVector<int>>g2;
     QVector<int>prev;
+    QVector<Road*>arr_road;
     QVector<TrafficLights*>arr;
     QGraphicsScene*scene;
     QLabel* timer;

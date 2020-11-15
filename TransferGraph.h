@@ -22,6 +22,8 @@ private:
     QVector<QVector<int>>g;
     QVector<int>prev;
     int res;
+signals:
+    void change();
 };
 /**************************************************************************************************/
 #endif // TRANSFERGRAPH_H

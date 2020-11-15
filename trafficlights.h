@@ -62,6 +62,7 @@ protected:
     const QColor color_Algorithm = Qt::darkCyan;
  signals:
     void updateData(Transfer other);
+    void change();
 };
 /**************************************************************************************************/
 #endif // TRAFFICLIGHTS_H

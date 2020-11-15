@@ -16,6 +16,7 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QTimer>
 #include <QGraphicsItem>
+#include <QDebug>
 /**************************************************************************************************/
 class Root : public QObject
 {

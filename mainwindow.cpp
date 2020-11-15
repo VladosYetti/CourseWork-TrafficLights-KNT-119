@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QDebug>
 /**************************************************************************************************/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,14 +29,24 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(this->work, &working::getConnect, [this](int a, int b)
     {
        this->arr[a - 1]->setConnect(true);
-       QLineF line;
-       line.setP1(this->arr[a - 1]->scenePos());
-       line.setP2(this->arr[b - 1]->scenePos());
-       this->g[a - 1][b - 1] = (this->arr[a - 1]->getInterval() / 1000);
-       this->g[b - 1][a - 1] = (this->arr[a - 1]->getInterval() / 1000);
+       Road* line = new Road(this);
+       line->setLeft(arr[a - 1]);
+       line->setRight(arr[b - 1]);
+
+       if(line->getLeft()->getMode() and line->getRight()->getMode())
+       {
+           this->g[a - 1][b - 1] = (this->arr[a - 1]->getInterval() / 1000) + (this->arr[b - 1]->getInterval() / 1000);
+           this->g[b - 1][a - 1] = (this->arr[a - 1]->getInterval() / 1000) + (this->arr[b - 1]->getInterval() / 1000);
+       }
+       else
+       {
+           this->g[a - 1][b - 1] = -1;
+           this->g[b - 1][a - 1] = -1;
+       }
        this->g2[a - 1][b - 1] = this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic();
        this->g2[b - 1][a - 1] = this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic();
-       this->scene->addLine(line);
+       this->arr_road.push_back(line);
+       this->scene->addLine(line->getLine());
     });
     QObject::connect(this, &MainWindow::MaxSizeAlgorithm, this->work, &working::setMaxSizeAlgorithm);
     /**************************************************************************************************/
@@ -48,7 +57,6 @@ MainWindow::MainWindow(QWidget *parent)
         int finish = b - 1;
         this->prev = QVector<int>(arr.size(), -1);
         int n = this->arr.size();
-        qDebug() << str;
         /**************************************************************************************************/
         if(str == "BFS")
         {
@@ -70,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
         }
         /**************************************************************************************************/
     });
+    QObject::connect(this, &MainWindow::changeMatrix,this, &MainWindow::change);
     /**************************************************************************************************/
     this->ui->graphicsView->setScene(this->scene);
     /**************************************************************************************************/
@@ -90,6 +99,7 @@ MainWindow::~MainWindow()
     delete this->scene;
     delete this->timer;
     for(auto&i:this->scene->items()) { delete  i; }
+    for(auto&i:this->arr_road) {delete i;}
     delete this->work;
     delete this->helpform;
 }
@@ -141,6 +151,7 @@ void MainWindow::on_actionClear_triggered()
     {
         this->arr.clear();
         for(auto&i:this->scene->items()) { delete  i; }
+        for(auto&i:this->arr_road) {delete i;}
         this->status = false;
     }
 }
@@ -161,6 +172,7 @@ void MainWindow::on_actionAdd_triggered()
     TrafficLights* tmp = new TrafficLights(this);
     this->arr.push_back(tmp);
     tmp->setPos(randomBetween(40, 600), randomBetween(30,470));
+    QObject::connect(tmp, &TrafficLights::change, this, &MainWindow::changeMatrix);
     scene->addItem(tmp);
 }
 /**************************************************************************************************/
@@ -202,6 +214,7 @@ void MainWindow::on_Start_clicked()
         i->setInterval(randomBetween(1000,1000000));
         i->setMode(true);
     }
+    emit changeMatrix();
 }
 /**************************************************************************************************/
 void MainWindow::on_Stop_clicked()
@@ -212,6 +225,34 @@ void MainWindow::on_Stop_clicked()
 /**************************************************************************************************/
 void MainWindow::on_actionHelp_triggered()
 {
-    this->helpform->show();
+  this->helpform->show();
+}
+/**************************************************************************************************/
+void MainWindow::change()
+{
+  for(int i = 0; i < this->arr.size(); ++i)
+  {
+     for(int j = 0; j < this->arr.size(); ++j)
+     {
+         if(this->g[i][j] != 0)
+         {
+             if(this->arr[i]->getMode() and arr[j]->getMode())
+             {
+                 this->g[i][j] = (this->arr[i]->getInterval() / 1000) + (this->arr[j]->getInterval() / 1000);
+                 this->g[j][i] = (this->arr[i]->getInterval() / 1000) + (this->arr[j]->getInterval() / 1000);
+             }
+             else
+             {
+                 this->g[i][j] = -1;
+                 this->g[j][i] = -1;
+             }
+         }
+         if(this->g2[i][j] != 0)
+         {
+             this->g2[i][j] = (this->arr[i]->getTraffic() + this->arr[j]->getTraffic());
+             this->g2[j][i] = (this->arr[i]->getTraffic() + this->arr[j]->getTraffic());
+         }
+     }
+  }
 }
 /**************************************************************************************************/
