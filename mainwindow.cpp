@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 /**************************************************************************************************/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -13,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     , timer(new QLabel(this))
     , work(new working(this))
     , helpform(new HelpForm(this))
+    , status(false)
 {
     ui->setupUi(this);
     this->setWindowTitle("TrafficLightsApp");
@@ -31,7 +33,42 @@ MainWindow::MainWindow(QWidget *parent)
        QLineF line;
        line.setP1(this->arr[a - 1]->scenePos());
        line.setP2(this->arr[b - 1]->scenePos());
+       this->g[a - 1][b - 1] = (this->arr[a - 1]->getInterval() / 1000);
+       this->g[b - 1][a - 1] = (this->arr[a - 1]->getInterval() / 1000);
+       this->g2[a - 1][b - 1] = this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic();
+       this->g2[b - 1][a - 1] = this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic();
        this->scene->addLine(line);
+    });
+    QObject::connect(this, &MainWindow::MaxSizeAlgorithm, this->work, &working::setMaxSizeAlgorithm);
+    /**************************************************************************************************/
+    QObject::connect(this->work, &working::getAlgorithm, [this](int a, int b, QString str)
+    {
+        if(!this->status) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("ERROR")); return; }
+        int start = a - 1;
+        int finish = b - 1;
+        this->prev = QVector<int>(arr.size(), -1);
+        int n = this->arr.size();
+        qDebug() << str;
+        /**************************************************************************************************/
+        if(str == "BFS")
+        {
+            InputData obj(this->g, this->prev , start, finish, n);
+            this->bfs->Algorithm(obj);
+            this->resultworkalgorithmform->show();
+        }
+        else if(str == "DIJKSTRA")
+        {
+           InputData obj(this->g, this->prev , start, finish, n);
+           this->dijkstra->Algorithm(obj);
+           this->resultworkalgorithmform->show();
+        }
+        else if(str == "FORD-FULKERSON")
+        {
+            InputData obj(this->g2, this->prev , start, finish, n);
+            this->fordfulkerson->Algorithm(obj);
+            this->resultworkalgorithmform->show();
+        }
+        /**************************************************************************************************/
     });
     /**************************************************************************************************/
     this->ui->graphicsView->setScene(this->scene);
@@ -65,20 +102,8 @@ void MainWindow::on_actionAbout_triggered()
 void MainWindow::on_actionBest_Route_Planner_triggered()
 {
   if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
+  emit MaxSizeAlgorithm(this->arr.size(), "DIJKSTRA");
   this->work->show();
-            int n = 6;
-                                 g ={ {0, 3, 5, -1, -1, -1  },  // For Example
-                                      {-1, 0, -1, 7, 5, -1  },
-                                      { -1, -1, 0, -1, 3,-1 },
-                                      {-1, -1, 3, 0, -1, 11 },
-                                      {-1, -1, -1, -1, 0, 7 },
-                                      {-1, -1, -1, -1, -1, 0} };
-
-            prev = QVector<int>(n, -1);
-            int s = 0, f = 5;
-            InputData obj(g, prev , s, f, n);
-            this->dijkstra->Algorithm(obj);
-            this->resultworkalgorithmform->show();
 }
 /**************************************************************************************************/
 void MainWindow::on_actionEXIT_triggered()
@@ -99,39 +124,15 @@ void MainWindow::on_actionGitHub_triggered()
 void MainWindow::on_actionTraffic_ongestion_triggered()
 {
   if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
-    this->work->show();
-    int n = 6;
-                         g ={ {0, 3, 5, -1, -1, -1  },  // For Example
-                              {-1, 0, -1, 7, 5, -1  },
-                              { -1, -1, 0, -1, 3,-1 },
-                              {-1, -1, 3, 0, -1, 11 },
-                              {-1, -1, -1, -1, 0, 7 },
-                              {-1, -1, -1, -1, -1, 0} };
-
-    prev = QVector<int>(n, -1);
-    int s = 0, f = 5;
-    InputData obj(g, prev , s, f, n);
-    this->fordfulkerson->Algorithm(obj);
-    this->resultworkalgorithmform->show();
+   emit MaxSizeAlgorithm(this->arr.size(), "FORD-FULKERSON");
+   this->work->show();
 }
 /**************************************************************************************************/
 void MainWindow::on_actionConnection_heck_triggered()
 {
   if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
+  emit MaxSizeAlgorithm(this->arr.size(), "BFS");
   this->work->show();
-    int n = 6;
-                         g ={ {0, 3, 5, -1, -1, -1  },  // For Example
-                              {-1, 0, -1, 7, 5, -1  },
-                              { -1, -1, 0, -1, 3,-1 },
-                              {-1, -1, 3, 0, -1, 11 },
-                              {-1, -1, -1, -1, 0, 7 },
-                              {-1, -1, -1, -1, -1, 0} };
-
-    prev = QVector<int>(n, -1);
-    int s = 0, f = 5;
-    InputData obj(g, prev , s, f, n);
-    this->bfs->Algorithm(obj);
-    this->resultworkalgorithmform->show();
 }
 /**************************************************************************************************/
 void MainWindow::on_actionClear_triggered()
@@ -140,6 +141,7 @@ void MainWindow::on_actionClear_triggered()
     {
         this->arr.clear();
         for(auto&i:this->scene->items()) { delete  i; }
+        this->status = false;
     }
 }
 /**************************************************************************************************/
@@ -167,6 +169,12 @@ void MainWindow::on_actionconnect_triggered()
     if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
     this->work->show();
     emit this->MaxSizeConnect(this->arr.size());
+    if(!status)
+    {
+        this->g = QVector<QVector<int>>(this->arr.size(), QVector<int>(this->arr.size(), 0));
+        this->g2 = QVector<QVector<int>>(this->arr.size(), QVector<int>(this->arr.size(), 0));
+        this->status = true;
+    }
 }
 /**************************************************************************************************/
 void MainWindow::on_DayMode_clicked()

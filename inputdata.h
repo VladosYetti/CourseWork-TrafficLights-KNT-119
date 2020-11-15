@@ -1,9 +1,10 @@
 #pragma once
 #ifndef INPUTDATA_H
 #define INPUTDATA_H
-#include <QVector>
 /**************************************************************************************************/
-class InputData
+#include "root.h"
+/**************************************************************************************************/
+class InputData : public Root
 {
 public:
   explicit InputData(QVector<QVector<int>>&g, QVector<int>&prev, int& s, int& f, int& n);

@@ -7,8 +7,9 @@
 #include <QQueue>
 #include "TransferGraph.h"
 #include "inputdata.h"
+#include "root.h"
 /**************************************************************************************************/
-class AbstractAlgorithmGraph : public QObject
+class AbstractAlgorithmGraph : public Root
 {
     Q_OBJECT
 public:

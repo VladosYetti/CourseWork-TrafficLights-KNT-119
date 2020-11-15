@@ -1,6 +1,6 @@
 #include "abstractalgorithmgraph.h"
 /**************************************************************************************************/
-AbstractAlgorithmGraph::AbstractAlgorithmGraph(QObject *parent) : QObject(parent) {}
+AbstractAlgorithmGraph::AbstractAlgorithmGraph(QObject *parent) : Root(parent) {}
 /**************************************************************************************************/
 int AbstractAlgorithmGraph::max(int a, int b) const { return a < b ? b : a; }
 /**************************************************************************************************/

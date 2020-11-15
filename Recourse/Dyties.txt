@@ -1,21 +1,21 @@
 Vladislav Horobets
-- Algorithms
-- Abstract class
-- TrafficLight
-- Change Day/Night Mode
-- resultworkalgorithmform
-- inputdata
-- TransferGraph
+1) Algorithms (BFS, Dijkstra, FordFulkerson)
+2) Abstract class
+3) TrafficLight
+4) Change Day/Night Mode
+5) resultworkalgorithmform
+6) inputdata
+7) TransferGraph
+8) All Documents
 
 Danil Degtarenko
-- aboutform
-- Transfer
-- settingform
-- workingform
-- helpform
+1) aboutform
+2) Transfer
+3) settingform
+4) workingform
+5) helpform
 
 Alexey Pokrepow
 - none
-
 Danil Sviridenko
 - none

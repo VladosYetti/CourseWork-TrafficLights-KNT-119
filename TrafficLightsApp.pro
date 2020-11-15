@@ -21,6 +21,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     resultworkalgorithmform.cpp \
+    root.cpp \
     settingform.cpp \
     trafficlights.cpp \
     working.cpp
@@ -37,6 +38,7 @@ HEADERS += \
     inputdata.h \
     mainwindow.h \
     resultworkalgorithmform.h \
+    root.h \
     settingform.h \
     trafficlights.h \
     working.h

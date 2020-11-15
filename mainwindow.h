@@ -31,6 +31,7 @@ public:
     ~MainWindow();
 signals:
     void MaxSizeConnect(int size);
+    void MaxSizeAlgorithm(int size, QString str);
 private slots:
     void on_actionAbout_triggered();
     void on_actionBest_Route_Planner_triggered();
@@ -47,7 +48,6 @@ private slots:
     void on_Start_clicked();
     void on_Stop_clicked();
     void on_actionHelp_triggered();
-
 private:
     Ui::MainWindow *ui;
     DijkstraAlgorithmGraph* dijkstra;
@@ -56,12 +56,14 @@ private:
     ResultWorkAlgorithmForm* resultworkalgorithmform;
     AboutForm* aboutform;
     QVector<QVector<int>>g;
+    QVector<QVector<int>>g2;
     QVector<int>prev;
     QVector<TrafficLights*>arr;
     QGraphicsScene*scene;
     QLabel* timer;
     working* work;
     HelpForm* helpform;
+    bool status;
 protected:
     virtual void timerEvent(QTimerEvent* event) override;
     static int randomBetween(int low, int high);

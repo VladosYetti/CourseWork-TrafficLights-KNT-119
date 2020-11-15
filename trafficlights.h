@@ -2,19 +2,13 @@
 #ifndef TRAFFICLIGHTS_H
 #define TRAFFICLIGHTS_H
 /**************************************************************************************************/
-#include <QGraphicsItem>
-#include <QObject>
-#include <QColor>
-#include <QPainter>
-#include <QGraphicsSceneMouseEvent>
-#include <QTimer>
 #include "settingform.h"
 #include "Transfer.h"
-#include <QString>
+#include "root.h"
 /**************************************************************************************************/
-class TrafficLights  : public QObject, public QGraphicsItem
+class TrafficLights  : public Root, public QGraphicsItem
 {
-    Q_OBJECT
+  Q_OBJECT
 public:
     explicit TrafficLights(QObject*parents=nullptr,
                            QColor color_1 =Qt::red ,

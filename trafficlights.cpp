@@ -9,7 +9,7 @@ TrafficLights::TrafficLights(
                              QColor color_2,
                              QColor color_3,
                              QColor color_4
-                             ):QObject(parents),
+                             ):Root(parents),
                              setting(new SettingForm()),
                              transfer(new  Transfer()),
                              color_1(color_1),

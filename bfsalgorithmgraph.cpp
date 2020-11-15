@@ -24,7 +24,7 @@ int BFSAlgorithmGraph::Algorithm(InputData& data)
     }
     /**************************************************************************************************/
     QVector<int>path;
-    int curr = data.getFinish() - 1;
+    int curr = data.getFinish();
     while(curr != -1)
     {
         path.push_back(curr);
@@ -33,8 +33,8 @@ int BFSAlgorithmGraph::Algorithm(InputData& data)
     /**************************************************************************************************/
     this->reverse(path);
     /**************************************************************************************************/
-    emit this->GraphPath(TransferGraph("BFS", data.getG(), path, dist[data.getFinish() - 1]));
+    emit this->GraphPath(TransferGraph("BFS", data.getG(), path, dist[data.getFinish()]));
     /**************************************************************************************************/
-    return dist[data.getFinish() - 1] == true;
+    return dist[data.getFinish()] == true;
 }
 /**************************************************************************************************/

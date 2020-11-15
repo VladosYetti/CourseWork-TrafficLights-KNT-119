@@ -46,7 +46,7 @@ void AboutForm::on_About_clicked()
   this->ui->Duties->setVisible(true);
   this->ui->about->setVisible(true);
   this->ui->About->setVisible(false);
-   this->ui->working->clear();
+  this->ui->working->clear();
   this->ui->working->addItem("Vladislav Horobets \t KNT-119");
   this->ui->working->addItem("Danil Degtarenko \t KNT-119");
   this->ui->working->addItem("Alexey Pokrepow \t KNT-119");
