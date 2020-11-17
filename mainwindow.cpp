@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
        this->g2[a - 1][b - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
        this->g2[b - 1][a - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
        this->arr_road.push_back(line);
-       this->scene->addLine(line->getLine());
+       this->scene->addLine(line->getLine(), QPen(Qt::darkGray, 2));
     });
     QObject::connect(this, &MainWindow::MaxSizeAlgorithm, this->work, &working::setMaxSizeAlgorithm);
     /**************************************************************************************************/
@@ -83,29 +83,26 @@ MainWindow::MainWindow(QWidget *parent)
     /**************************************************************************************************/
     QObject::connect(this->resultworkalgorithmform, &ResultWorkAlgorithmForm::path, this, [this](QVector<int>path)
     {
-      for(auto&i:path)
-      {
-        this->arr[i]->setResAlgorithm();
-      }
+      for(auto&i:path) this->arr[i]->setResAlgorithm();
       if(QMessageBox::question(this, tr("TrafficLightsApp"), tr("Do you want to print?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
       {
           QPrinter printer;
           printer.setPrinterName("Your Printer");
           QPrintDialog dialog(&printer, this);
+          if(dialog.exec() == QDialog::Rejected) { return;}
           printer.setOrientation(QPrinter::Landscape);
-          printer.setPageSize(QPrinter::A4);
           QPainter painter(&printer);
           painter.setRenderHint(QPainter::Antialiasing);
-          if(dialog.exec() == QDialog::Rejected) { return;}
-          this->ui->graphicsView->scene()->render(&painter);
+          this->scene->render(&painter);
       }
+      for(auto&i:path) this->arr[i]->setMode(true);
     });
     /**************************************************************************************************/
     this->ui->graphicsView->setScene(this->scene);
     /**************************************************************************************************/
     QImage img(":/Data/Recourse/MapDay.jpg");
     this->scene->setSceneRect(0,0,img.width(),img.height());
-    this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
+    this->scene->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
 /**************************************************************************************************/
 MainWindow::~MainWindow()
@@ -213,14 +210,14 @@ void MainWindow::on_DayMode_clicked()
 {
   QImage img(":/Data/Recourse/MapDay.jpg");
   this->scene->setSceneRect(0,0,img.width(),img.height());
-  this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
+  this->scene->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
 /**************************************************************************************************/
 void MainWindow::on_NightMode_clicked()
 {
   QImage img(":/Data/Recourse/MapNight.jpg");
   this->scene->setSceneRect(0,0,img.width(),img.height());
-  this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
+  this->scene->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
 /**************************************************************************************************/
 void MainWindow::on_Start_clicked()

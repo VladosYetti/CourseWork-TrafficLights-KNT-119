@@ -136,7 +136,9 @@ int TrafficLights::getTraffic() const
 /**************************************************************************************************/
 void TrafficLights::setResAlgorithm()
 {
-
+  this->setMode(false);
+  this->curr_color = Qt::cyan;
+  this->Update();
 }
 /**************************************************************************************************/
 void TrafficLights::Update()
@@ -215,7 +217,7 @@ void TrafficLights::doDrawing(QPainter *painter, QColor other)
   painter->setRenderHint(QPainter::HighQualityAntialiasing);
   painter->setBrush(other);
   painter->drawEllipse(-10, -10, 30, 30);
-  painter->setPen(Qt::red);
+  painter->setPen(QPen(Qt::red));
   painter->drawText(-10, 30, QString::number(this->index));
 }
 /**************************************************************************************************/
