@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QDebug>
 /**************************************************************************************************/
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -28,9 +29,11 @@ MainWindow::MainWindow(QWidget *parent)
     QObject::connect(this, &MainWindow::MaxSizeConnect, this->work, &working::setMaxSizeConnect);
     QObject::connect(this->work, &working::getConnect, [this](int a, int b)
     {
+       qDebug() << this->g.size();
+       if(a != b){
        this->arr[a - 1]->setConnect(true);
+       this->arr[b - 1]->setConnect(true);
        Road* line = new Road(this);
-       if(a == b) return ;
        line->setLeft(arr[a - 1]);
        line->setRight(arr[b - 1]);
 
@@ -47,13 +50,13 @@ MainWindow::MainWindow(QWidget *parent)
        this->g2[a - 1][b - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
        this->g2[b - 1][a - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
        this->arr_road.push_back(line);
-       this->scene->addLine(line->getLine(), QPen(Qt::darkGray, 2));
+       this->scene->addLine(line->getLine(), QPen(Qt::darkGray, 2));}
     });
     QObject::connect(this, &MainWindow::MaxSizeAlgorithm, this->work, &working::setMaxSizeAlgorithm);
     /**************************************************************************************************/
     QObject::connect(this->work, &working::getAlgorithm, [this](int a, int b, QString str)
     {
-        if(!this->status) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("ERROR")); return; }
+        if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("ERROR")); return; }
         int start = a - 1;
         int finish = b - 1;
         this->prev = QVector<int>(arr.size(), -1);
@@ -188,6 +191,13 @@ void MainWindow::on_actionAdd_triggered()
 {
     TrafficLights* tmp = new TrafficLights(this);
     this->arr.push_back(tmp);
+    this->g.push_back(QVector<int>(this->arr.size()));
+    this->g2.push_back(QVector<int>(this->arr.size()));
+    for(int i = 0; i < g.size(); ++i)
+    {
+        this->g[i].push_back(0);
+        this->g2[i].push_back(0);
+    }
     tmp->setPos(randomBetween(100, 1000), randomBetween(100, 1000));
     QObject::connect(tmp, &TrafficLights::change, this, &MainWindow::changeMatrix);
     scene->addItem(tmp);
@@ -198,12 +208,6 @@ void MainWindow::on_actionconnect_triggered()
     if(this->arr.size() == 0) { QMessageBox::information(this, tr("TrafficLightsApp"), tr("Empty")); return; }
     this->work->show();
     emit this->MaxSizeConnect(this->arr.size());
-    if(!status)
-    {
-        this->g = QVector<QVector<int>>(this->arr.size(), QVector<int>(this->arr.size(), 0));
-        this->g2 = QVector<QVector<int>>(this->arr.size(), QVector<int>(this->arr.size(), 0));
-        this->status = true;
-    }
 }
 /**************************************************************************************************/
 void MainWindow::on_DayMode_clicked()

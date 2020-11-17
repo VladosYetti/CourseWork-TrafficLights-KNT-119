@@ -1,7 +1,6 @@
 #include "trafficlights.h"
 /**************************************************************************************************/
 int TrafficLights::global_index = 1;
-bool TrafficLights::connect = false;
 /**************************************************************************************************/
 TrafficLights::TrafficLights(
                              QObject *parents,
@@ -16,7 +15,8 @@ TrafficLights::TrafficLights(
                              color_2(color_2),
                              color_3(color_3),
                              color_4(color_4),
-                             timer(new QTimer())
+                             timer(new QTimer()),
+                             connect(false)
 {
   this->index = this->global_index;
   ++this->global_index;

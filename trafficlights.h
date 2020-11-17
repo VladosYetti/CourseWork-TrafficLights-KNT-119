@@ -50,7 +50,7 @@ private:
     int interval;
     int traffic;
     static int global_index;
-    static bool connect;
+    bool connect;
 protected:
     virtual void mouseDoubleClickEvent(QGraphicsSceneMouseEvent*event) override;
     virtual void paint(QPainter*painter,const QStyleOptionGraphicsItem*option,QWidget*widget=nullptr) override;
