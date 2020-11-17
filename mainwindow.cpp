@@ -24,13 +24,16 @@ MainWindow::MainWindow(QWidget *parent)
     this->timer->setText(QTime::currentTime().toString("hh:mm:ss"));
     /**************************************************************************************************/
     QObject::connect(this->dijkstra, &DijkstraAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
+    /**************************************************************************************************/
     QObject::connect(this->fordfulkerson, &FordFulkersonAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
+    /**************************************************************************************************/
     QObject::connect(this->bfs, &BFSAlgorithmGraph::GraphPath, this->resultworkalgorithmform, &ResultWorkAlgorithmForm::setData);
+    /**************************************************************************************************/
     QObject::connect(this, &MainWindow::MaxSizeConnect, this->work, &working::setMaxSizeConnect);
+    /**************************************************************************************************/
     QObject::connect(this->work, &working::getConnect, [this](int a, int b)
     {
-       qDebug() << this->g.size();
-       if(a != b){
+       if(a != b) {
        this->arr[a - 1]->setConnect(true);
        this->arr[b - 1]->setConnect(true);
        Road* line = new Road(this);
@@ -50,8 +53,9 @@ MainWindow::MainWindow(QWidget *parent)
        this->g2[a - 1][b - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
        this->g2[b - 1][a - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
        this->arr_road.push_back(line);
-       this->scene->addLine(line->getLine(), QPen(Qt::darkGray, 2));}
+       this->scene->addLine(line->getLine(), QPen(Qt::darkGray, 2)); }
     });
+    /**************************************************************************************************/
     QObject::connect(this, &MainWindow::MaxSizeAlgorithm, this->work, &working::setMaxSizeAlgorithm);
     /**************************************************************************************************/
     QObject::connect(this->work, &working::getAlgorithm, [this](int a, int b, QString str)
@@ -173,6 +177,8 @@ void MainWindow::on_actionClear_triggered()
         for(auto&i:this->scene->items()) { delete  i; }
         for(auto&i:this->arr_road) {delete i;}
         this->status = false;
+        this->g.clear();
+        this->g2.clear();
     }
 }
 /**************************************************************************************************/
@@ -191,8 +197,8 @@ void MainWindow::on_actionAdd_triggered()
 {
     TrafficLights* tmp = new TrafficLights(this);
     this->arr.push_back(tmp);
-    this->g.push_back(QVector<int>(this->arr.size()));
-    this->g2.push_back(QVector<int>(this->arr.size()));
+    this->g.push_back(QVector<int>(this->arr.size(), 0));
+    this->g2.push_back(QVector<int>(this->arr.size(), 0));
     for(int i = 0; i < g.size(); ++i)
     {
         this->g[i].push_back(0);

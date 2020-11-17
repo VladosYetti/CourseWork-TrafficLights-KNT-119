@@ -2,7 +2,7 @@ Vladislav Horobets
 1) Algorithms (BFS, Dijkstra, FordFulkerson)
 2) Abstract class
 3) TrafficLight and road
-4) Change Day/Night Mode
+4) Change Day/Night Mode,MAP
 5) resultworkalgorithmform
 6) inputdata
 7) TransferGraph
@@ -13,7 +13,7 @@ Danil Degtarenko
 2) Transfer
 3) settingform
 4) workingform
-5) helpform
+5) helpform, TEST
 
 Alexey Pokrepow
 - none
