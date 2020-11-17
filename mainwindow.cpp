@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     {
        this->arr[a - 1]->setConnect(true);
        Road* line = new Road(this);
+       if(a == b) return ;
        line->setLeft(arr[a - 1]);
        line->setRight(arr[b - 1]);
 
@@ -43,8 +44,8 @@ MainWindow::MainWindow(QWidget *parent)
            this->g[a - 1][b - 1] = -1;
            this->g[b - 1][a - 1] = -1;
        }
-       this->g2[a - 1][b - 1] = this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic();
-       this->g2[b - 1][a - 1] = this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic();
+       this->g2[a - 1][b - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
+       this->g2[b - 1][a - 1] = (this->arr[a - 1]->getTraffic() + this->arr[b - 1]->getTraffic()) % 100;
        this->arr_road.push_back(line);
        this->scene->addLine(line->getLine());
     });
@@ -80,10 +81,29 @@ MainWindow::MainWindow(QWidget *parent)
     });
     QObject::connect(this, &MainWindow::changeMatrix,this, &MainWindow::change);
     /**************************************************************************************************/
+    QObject::connect(this->resultworkalgorithmform, &ResultWorkAlgorithmForm::path, this, [this](QVector<int>path)
+    {
+      for(auto&i:path)
+      {
+        this->arr[i]->setResAlgorithm();
+      }
+      if(QMessageBox::question(this, tr("TrafficLightsApp"), tr("Do you want to print?"), QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes)
+      {
+          QPrinter printer;
+          printer.setPrinterName("Your Printer");
+          QPrintDialog dialog(&printer, this);
+          printer.setOrientation(QPrinter::Landscape);
+          printer.setPageSize(QPrinter::A4);
+          QPainter painter(&printer);
+          painter.setRenderHint(QPainter::Antialiasing);
+          if(dialog.exec() == QDialog::Rejected) { return;}
+          this->ui->graphicsView->scene()->render(&painter);
+      }
+    });
+    /**************************************************************************************************/
     this->ui->graphicsView->setScene(this->scene);
     /**************************************************************************************************/
-    QPixmap img;
-    img.load(":/Data/Recourse/MapDay.jpg");
+    QImage img(":/Data/Recourse/MapDay.jpg");
     this->scene->setSceneRect(0,0,img.width(),img.height());
     this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
@@ -171,7 +191,7 @@ void MainWindow::on_actionAdd_triggered()
 {
     TrafficLights* tmp = new TrafficLights(this);
     this->arr.push_back(tmp);
-    tmp->setPos(randomBetween(40, 600), randomBetween(30,470));
+    tmp->setPos(randomBetween(100, 1000), randomBetween(100, 1000));
     QObject::connect(tmp, &TrafficLights::change, this, &MainWindow::changeMatrix);
     scene->addItem(tmp);
 }
@@ -191,16 +211,14 @@ void MainWindow::on_actionconnect_triggered()
 /**************************************************************************************************/
 void MainWindow::on_DayMode_clicked()
 {
-    QPixmap img;
-    img.load(":/Data/Recourse/MapDay.jpg");
-    this->scene->setSceneRect(0,0,img.width(),img.height());
-    this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
+  QImage img(":/Data/Recourse/MapDay.jpg");
+  this->scene->setSceneRect(0,0,img.width(),img.height());
+  this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
 /**************************************************************************************************/
 void MainWindow::on_NightMode_clicked()
 {
-  QPixmap img;
-  img.load(":/Data/Recourse/MapNight.jpg");
+  QImage img(":/Data/Recourse/MapNight.jpg");
   this->scene->setSceneRect(0,0,img.width(),img.height());
   this->ui->graphicsView->setBackgroundBrush(img.scaled(img.width(),img.height(),Qt::KeepAspectRatio));
 }
@@ -249,8 +267,8 @@ void MainWindow::change()
          }
          if(this->g2[i][j] != 0)
          {
-             this->g2[i][j] = (this->arr[i]->getTraffic() + this->arr[j]->getTraffic());
-             this->g2[j][i] = (this->arr[i]->getTraffic() + this->arr[j]->getTraffic());
+             this->g2[i][j] = (this->arr[i]->getTraffic() + this->arr[j]->getTraffic()) % 100;
+             this->g2[j][i] = (this->arr[i]->getTraffic() + this->arr[j]->getTraffic()) % 100;
          }
      }
   }

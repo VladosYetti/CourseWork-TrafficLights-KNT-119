@@ -63,7 +63,7 @@ void ResultWorkAlgorithmForm::setData(TransferGraph obj)
         this->ui->Text_Green->setText(" 1 - 30");
         this->ui->Text_Yellow->setText("30 - 60");
         this->ui->Text_Red->setText("60 - 100");
-        if(obj.getRes() != 0x3f3f3f3f) this->ui->result->setText(QString::number(obj.getRes()));
+        if(obj.getRes() != 0x3f3f3f3f) this->ui->result->setText(QString::number(obj.getRes() % 100));
         else this->ui->result->setText("inf");
     }
     else if(obj.getAlgorithm() == "FORD-FULKERSON")

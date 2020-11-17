@@ -15,6 +15,8 @@
 #include "TransferGraph.h"
 #include <QLabel>
 #include <QTime>
+#include <QPrintDialog>
+#include <QPrinter>
 #include "trafficlights.h"
 #include "working.h"
 #include "helpform.h"
